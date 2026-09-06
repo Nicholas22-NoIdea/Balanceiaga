@@ -29,7 +29,7 @@ body {
 .screen {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
 }
 
 .bottom-nav {
@@ -50,7 +50,8 @@ body {
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-  padding: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .pill {

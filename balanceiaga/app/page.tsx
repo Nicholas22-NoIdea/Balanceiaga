@@ -15,9 +15,9 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="screen px-4 pt-6">
+      <div className="screen px-4 pt-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-8">
           <div>
             <p className="text-xs font-medium" style={{ color: "#8B8FB5" }}>Welcome back,</p>
             <p className="text-lg font-bold" style={{ color: "#1A1A3E" }}>Andrew Mike 👋</p>
@@ -39,9 +39,9 @@ export default function Dashboard() {
         </div>
 
         {/* Load Summary Card */}
-        <div className="card mb-4" style={{ background: "linear-gradient(135deg, #1A1A3E 0%, #2D2B6B 100%)" }}>
+        <div className="card mb-8" style={{ background: "linear-gradient(135deg, #1A1A3E 0%, #2D2B6B 100%)" }}>
           <div className="flex items-center justify-between mb-1">
-            <p className="text-sm font-semibold text-white">This Week's Load</p>
+            <p className="text-base font-bold text-white">This Week&apos;s Load</p>
             <span
               className="pill"
               style={{ background: "#FF4444", color: "white", fontSize: 11 }}
@@ -57,8 +57,8 @@ export default function Dashboard() {
             />
           </div>
           <div
-            className="mt-3 p-3 rounded-xl"
-            style={{ background: "rgba(255,68,68,0.15)" }}
+            className="p-3 rounded-xl"
+            style={{ background: "rgba(255,68,68,0.15)", margin: "10px 0" }}
           >
             <p className="text-xs font-medium" style={{ color: "#FFB3B3" }}>
               ⚠️ You&apos;re {cap.overloadHours}h over capacity. Academic workload is the biggest contributor.
@@ -66,16 +66,16 @@ export default function Dashboard() {
           </div>
           <Link
             href="/rebalance"
-            className="mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm"
+            className="mt-4 w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-base"
             style={{ background: "#6C63FF", color: "white" }}
           >
             Rebalance My Week
-            <TrendingUp size={16} />
+            <TrendingUp size={20} />
           </Link>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="grid grid-cols-2 gap-3 mb-8">
           <div className="card">
             <p className="text-xs font-medium mb-1" style={{ color: "#8B8FB5" }}>Workload</p>
             <p className="text-2xl font-bold" style={{ color: "#1A1A3E" }}>{cap.totalWorkload}h</p>
@@ -89,15 +89,15 @@ export default function Dashboard() {
         </div>
 
         {/* Category Breakdown */}
-        <div className="card mb-4">
+        <div className="card mb-8">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>Category Breakdown</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Category Breakdown</p>
             <Link href="/capacity" className="flex items-center gap-1">
               <span className="text-xs" style={{ color: "#6C63FF" }}>Details</span>
               <ChevronRight size={14} color="#6C63FF" />
             </Link>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {mockCategoryLoads.filter(c => c.hours > 0).map((load) => (
               <CategoryBar key={load.category} load={load} maxHours={cap.totalWorkload} />
             ))}
@@ -105,12 +105,12 @@ export default function Dashboard() {
         </div>
 
         {/* Today's Tasks */}
-        <div className="mb-4">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>Today&apos;s Sessions</p>
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Today&apos;s Sessions</p>
             <span className="text-xs" style={{ color: "#8B8FB5" }}>Mon, 7 Sep</span>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col" style={{ gap: 7 }}>
             {todayTasks.map((task) => {
               const slot = task.scheduledSlots.find((s) => s.day === "Mon")!;
               return <TaskCard key={task.id} task={task} showSlot={slot} />;

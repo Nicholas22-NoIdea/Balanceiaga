@@ -16,7 +16,7 @@ export default function CapacityView() {
 
   return (
     <>
-      <div className="screen px-4 pt-6">
+      <div className="screen px-4 pt-8">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Link
@@ -49,8 +49,8 @@ export default function CapacityView() {
         )}
 
         {/* Capacity formula */}
-        <div className="card mb-4">
-          <p className="text-sm font-bold mb-4" style={{ color: "#1A1A3E" }}>Capacity Breakdown</p>
+        <div className="card mb-8">
+          <p className="text-base font-bold mb-4" style={{ color: "#1A1A3E" }}>Capacity Breakdown</p>
           <div className="flex flex-col gap-3">
             {calcRows.map((row, i) => (
               <div key={row.label}>
@@ -69,8 +69,8 @@ export default function CapacityView() {
         </div>
 
         {/* Day-by-day bars */}
-        <div className="card mb-4">
-          <p className="text-sm font-bold mb-4" style={{ color: "#1A1A3E" }}>Daily Load</p>
+        <div className="card mb-8">
+          <p className="text-base font-bold mb-4" style={{ color: "#1A1A3E" }}>Daily Load</p>
           <div className="flex gap-2 justify-between">
             {cap.weekDays.map((day) => {
               const maxH = 8;
@@ -121,9 +121,9 @@ export default function CapacityView() {
         </div>
 
         {/* Scheduled sessions */}
-        <div className="mb-4">
-          <p className="text-sm font-bold mb-3" style={{ color: "#1A1A3E" }}>Scheduled This Week</p>
-          <div className="flex flex-col gap-2">
+        <div className="mb-8">
+          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E" }}>Scheduled This Week</p>
+          <div className="flex flex-col" style={{ gap: 3 }}>
             {mockTasks.flatMap((task) =>
               task.scheduledSlots.map((slot) => (
                 <div key={task.id + slot.day} className="card flex items-center justify-between">
@@ -149,10 +149,10 @@ export default function CapacityView() {
         {cap.isOverloaded && (
           <Link
             href="/overload"
-            className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm mb-4"
+            className="w-full flex items-center justify-center gap-2 py-5 rounded-2xl font-bold text-base mb-4"
             style={{ background: "#FF4444", color: "white" }}
           >
-            <TrendingUp size={16} />
+            <TrendingUp size={20} />
             View Overload Details
           </Link>
         )}

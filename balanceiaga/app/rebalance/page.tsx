@@ -37,7 +37,7 @@ export default function RebalancePage() {
         </div>
 
         {/* Current overload pill */}
-        <div className="flex items-center gap-2 mb-4 px-1">
+        <div className="flex items-center gap-2 px-1" style={{ marginTop: 5, marginBottom: 5 }}>
           <Zap size={14} color="#FF4444" />
           <span className="text-sm" style={{ color: "#FF4444", fontWeight: 600 }}>
             Currently {cap.overloadHours}h over capacity ({cap.overloadPercent}%)

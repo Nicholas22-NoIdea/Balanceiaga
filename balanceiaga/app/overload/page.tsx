@@ -15,7 +15,7 @@ export default function OverloadDetection() {
 
   return (
     <>
-      <div className="screen px-4 pt-6">
+      <div className="screen px-4 pt-8">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Link
@@ -33,7 +33,7 @@ export default function OverloadDetection() {
 
         {/* Big alert card */}
         <div
-          className="card mb-4 text-center py-6"
+          className="card mb-8 text-center py-6"
           style={{ background: "linear-gradient(135deg, #FF4444 0%, #FF6B6B 100%)" }}
         >
           <div className="flex items-center justify-center gap-2 mb-2">
@@ -57,8 +57,8 @@ export default function OverloadDetection() {
         </div>
 
         {/* Overload bar */}
-        <div className="card mb-4">
-          <p className="text-sm font-bold mb-3" style={{ color: "#1A1A3E" }}>Workload vs Capacity</p>
+        <div className="card mb-8">
+          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E" }}>Workload vs Capacity</p>
           <div className="flex flex-col gap-2">
             <div>
               <div className="flex justify-between text-xs mb-1" style={{ color: "#8B8FB5" }}>
@@ -83,8 +83,8 @@ export default function OverloadDetection() {
         </div>
 
         {/* Commitments breakdown */}
-        <div className="card mb-4">
-          <p className="text-sm font-bold mb-3" style={{ color: "#1A1A3E" }}>All Commitments</p>
+        <div className="card mb-8">
+          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E" }}>All Commitments</p>
           <div className="flex flex-col gap-3">
             {mockTasks.map((task) => {
               const flex = flexibilityColors[task.flexibility];
@@ -112,10 +112,10 @@ export default function OverloadDetection() {
 
         <Link
           href="/rebalance"
-          className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm mb-4"
+          className="w-full flex items-center justify-center gap-2 py-5 rounded-2xl font-bold text-base mb-4"
           style={{ background: "#6C63FF", color: "white" }}
         >
-          <Zap size={16} />
+          <Zap size={20} />
           Find Solutions
         </Link>
       </div>

@@ -56,7 +56,7 @@ export default function LoadRing({ percent, workloadHours, capacityHours, size =
         </div>
       </div>
       <div className="mt-2 text-center">
-        <p className="text-sm font-semibold" style={{ color: "#1A1A3E" }}>
+        <p className="text-sm font-semibold" style={{ color: "#FFFFFF" }}>
           {workloadHours}h workload / {capacityHours}h capacity
         </p>
       </div>

@@ -34,7 +34,7 @@ export default function OptionCard({ option, onAccept, onReject }: OptionCardPro
       }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           {option.isRecommended && (
             <Star size={14} color="#FFB800" fill="#FFB800" />
@@ -54,7 +54,7 @@ export default function OptionCard({ option, onAccept, onReject }: OptionCardPro
       </div>
 
       {/* Result badge */}
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-4">
         <span
           className="pill"
           style={{
@@ -71,29 +71,42 @@ export default function OptionCard({ option, onAccept, onReject }: OptionCardPro
         </span>
       </div>
 
-      <p className="text-xs mb-3" style={{ color: "#8B8FB5" }}>
+      <p className="text-xs mb-5 leading-relaxed" style={{ color: "#8B8FB5" }}>
         {option.description}
       </p>
 
       {/* Expanded changes */}
       {expanded && (
-        <div className="flex flex-col gap-2 mb-4">
+        <div className="flex flex-col gap-3 mb-5">
           {option.changes.map((change) => {
             const ac = actionColors[change.action] ?? actionColors["MOVE"];
             return (
-              <div key={change.taskId} className="flex items-start gap-2 p-2 rounded-xl" style={{ background: "#F8F8FF" }}>
-                <span
-                  className="pill flex items-center gap-1 flex-shrink-0"
-                  style={{ color: ac.color, background: ac.bg }}
-                >
-                  {actionIcons[change.action]}
-                  {change.action}
-                </span>
-                <div>
-                  <p className="text-xs font-semibold" style={{ color: "#1A1A3E" }}>{change.taskTitle}</p>
-                  <p className="text-xs" style={{ color: "#8B8FB5" }}>{change.detail}</p>
+              <div
+                key={change.taskId}
+                className="rounded-xl"
+                style={{ background: "#F8F8FF", padding: "14px 16px" }}
+              >
+                {/* Top row: badge aligned left, hours saved aligned right */}
+                <div className="flex items-center justify-between" style={{ marginBottom: 5 }}>
+                  <span
+                    className="pill flex items-center gap-1"
+                    style={{ color: ac.color, background: ac.bg }}
+                  >
+                    {actionIcons[change.action]}
+                    {change.action}
+                  </span>
+                  <span className="text-xs font-bold" style={{ color: "#00C853" }}>
+                    −{change.hoursSaved}h
+                  </span>
                 </div>
-                <span className="ml-auto text-xs font-bold flex-shrink-0" style={{ color: "#00C853" }}>−{change.hoursSaved}h</span>
+                {/* Task title */}
+                <p className="text-xs font-semibold" style={{ color: "#1A1A3E", marginBottom: 5 }}>
+                  {change.taskTitle}
+                </p>
+                {/* Description */}
+                <p className="text-xs" style={{ color: "#8B8FB5" }}>
+                  {change.detail}
+                </p>
               </div>
             );
           })}
@@ -104,14 +117,14 @@ export default function OptionCard({ option, onAccept, onReject }: OptionCardPro
       <div className="flex gap-2">
         <button
           onClick={() => onAccept(option.id)}
-          className="flex-1 py-2 rounded-xl text-sm font-semibold"
+          className="flex-1 py-3 rounded-xl text-sm font-semibold"
           style={{ background: "#6C63FF", color: "white" }}
         >
           Accept
         </button>
         <button
           onClick={() => onReject(option.id)}
-          className="flex-1 py-2 rounded-xl text-sm font-semibold"
+          className="flex-1 py-3 rounded-xl text-sm font-semibold"
           style={{ background: "#F0F1FF", color: "#8B8FB5" }}
         >
           Reject
