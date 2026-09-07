@@ -65,16 +65,16 @@ export default function Dashboard() {
             />
           </div>
           <div
-            className="p-3 rounded-xl"
-            style={{ background: "rgba(255,68,68,0.15)", margin: "10px 0" }}
+            className="p-3 rounded-lg"
+            style={{ background: "rgba(255,68,68,0.15)", margin: "6px 0" }}
           >
-            <p className="mt-2 mb-2 text-xs font-medium flex items-center justify-center" style={{ color: "#FFB3B3" }}>
+            <p className="text-xs font-medium flex items-center justify-center" style={{ color: "#FFB3B3", padding: "3px" }}>
               ⚠️ You&apos;re {cap.overloadHours}h over capacity.
             </p>
           </div>
           <Link
             href="/rebalance"
-            className="mt-4 w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-base"
+            className="mt-4 w-full flex items-center justify-center gap-2 py-4 rounded-lg font-bold text-base"
             style={{ background: "#6C63FF", color: "white" }}
           >
             Rebalance My Week
