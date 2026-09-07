@@ -18,10 +18,18 @@ export default function Dashboard() {
       <div className="screen px-4 pt-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <p className="text-xs font-medium" style={{ color: "#8B8FB5" }}>Welcome back,</p>
-            <p className="text-lg font-bold" style={{ color: "#1A1A3E" }}>Andrew Mike 👋</p>
-          </div>
+          <Link href="/profile" className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm"
+              style={{ background: "linear-gradient(135deg, #6C63FF 0%, #A78BFA 100%)" }}
+            >
+              AM
+            </div>
+            <div>
+              <p className="text-xs font-medium" style={{ color: "#8B8FB5" }}>Welcome back,</p>
+              <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Andrew Mike 👋</p>
+            </div>
+          </Link>
           <div className="relative">
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center"
@@ -39,7 +47,7 @@ export default function Dashboard() {
         </div>
 
         {/* Load Summary Card */}
-        <div className="card mb-8" style={{ background: "linear-gradient(135deg, #1A1A3E 0%, #2D2B6B 100%)" }}>
+        <div className="card mb-8" style={{ background: "linear-gradient(135deg, #1A1A3E 0%, #2D2B6B 100%)", margin: "10px 0" }}>
           <div className="flex items-center justify-between mb-1">
             <p className="text-base font-bold text-white">This Week&apos;s Load</p>
             <span
@@ -60,8 +68,8 @@ export default function Dashboard() {
             className="p-3 rounded-xl"
             style={{ background: "rgba(255,68,68,0.15)", margin: "10px 0" }}
           >
-            <p className="text-xs font-medium" style={{ color: "#FFB3B3" }}>
-              ⚠️ You&apos;re {cap.overloadHours}h over capacity. Academic workload is the biggest contributor.
+            <p className="mt-2 mb-2 text-xs font-medium flex items-center justify-center" style={{ color: "#FFB3B3" }}>
+              ⚠️ You&apos;re {cap.overloadHours}h over capacity.
             </p>
           </div>
           <Link
@@ -91,7 +99,7 @@ export default function Dashboard() {
         {/* Category Breakdown */}
         <div className="card mb-8">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Category Breakdown</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Category Breakdown</p>
             <Link href="/capacity" className="flex items-center gap-1">
               <span className="text-xs" style={{ color: "#6C63FF" }}>Details</span>
               <ChevronRight size={14} color="#6C63FF" />
@@ -107,7 +115,7 @@ export default function Dashboard() {
         {/* Today's Tasks */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Today&apos;s Sessions</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Today&apos;s Sessions</p>
             <span className="text-xs" style={{ color: "#8B8FB5" }}>Mon, 7 Sep</span>
           </div>
           <div className="flex flex-col" style={{ gap: 7 }}>
@@ -117,7 +125,7 @@ export default function Dashboard() {
             })}
           </div>
         </div>
-      </div>
+      </div >
       <BottomNav />
     </>
   );

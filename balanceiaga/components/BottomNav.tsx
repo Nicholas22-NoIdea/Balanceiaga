@@ -8,7 +8,7 @@ const navItems = [
   { icon: Calendar, label: "Schedule", href: "/capacity" },
   { icon: Plus, label: "", href: "/add-workload", isCenter: true },
   { icon: CheckSquare, label: "Tasks", href: "/overload" },
-  { icon: Clock, label: "History", href: "/" },
+  { icon: Clock, label: "Reflect", href: "/reflection" },
 ];
 
 export default function BottomNav() {

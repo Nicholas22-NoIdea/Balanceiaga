@@ -4,9 +4,9 @@ import BottomNav from "@/components/BottomNav";
 import { mockCapacity, mockTasks } from "@/lib/mockData";
 
 const flexibilityColors = {
-  Low:    { color: "#FF4444", bg: "#FFF0F0", label: "Hard to move" },
+  Low: { color: "#FF4444", bg: "#FFF0F0", label: "Hard to move" },
   Medium: { color: "#FF7043", bg: "#FFF3F0", label: "Can shift" },
-  High:   { color: "#00C853", bg: "#F0FDF4", label: "Easily moved" },
+  High: { color: "#00C853", bg: "#F0FDF4", label: "Easily moved" },
 };
 
 export default function OverloadDetection() {
@@ -27,7 +27,7 @@ export default function OverloadDetection() {
           </Link>
           <div>
             <p className="text-lg font-bold" style={{ color: "#1A1A3E" }}>Overload Detected</p>
-            <p className="text-xs" style={{ color: "#8B8FB5" }}>Here's what's causing the overload</p>
+            <p className="text-xs" style={{ color: "#8B8FB5", marginBottom: "10px" }}>Here's what's causing the overload</p>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ export default function OverloadDetection() {
 
         {/* Overload bar */}
         <div className="card mb-8">
-          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E" }}>Workload vs Capacity</p>
+          <p className="text-xl font-bold mb-3" style={{ color: "#1A1A3E" }}>Workload vs Capacity</p>
           <div className="flex flex-col gap-2">
             <div>
               <div className="flex justify-between text-xs mb-1" style={{ color: "#8B8FB5" }}>
@@ -84,7 +84,7 @@ export default function OverloadDetection() {
 
         {/* Commitments breakdown */}
         <div className="card mb-8">
-          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E" }}>All Commitments</p>
+          <p className="text-xl font-bold mb-3" style={{ color: "#1A1A3E", marginBottom: "10px" }}>All Commitments</p>
           <div className="flex flex-col gap-3">
             {mockTasks.map((task) => {
               const flex = flexibilityColors[task.flexibility];

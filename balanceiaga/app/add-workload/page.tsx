@@ -12,9 +12,9 @@ const priorities: Priority[] = ["High", "Medium", "Low"];
 
 const categoryColors: Record<Category, { color: string; bg: string; selected: string }> = {
   Academic: { color: "#6C63FF", bg: "#EEF0FF", selected: "#6C63FF" },
-  Social:   { color: "#FF6B9D", bg: "#FFF0F5", selected: "#FF6B9D" },
-  Errands:  { color: "#FF7043", bg: "#FFF3F0", selected: "#FF7043" },
-  Other:    { color: "#00C9B1", bg: "#F0FDFA", selected: "#00C9B1" },
+  Social: { color: "#FF6B9D", bg: "#FFF0F5", selected: "#FF6B9D" },
+  Errands: { color: "#FF7043", bg: "#FFF3F0", selected: "#FF7043" },
+  Other: { color: "#00C9B1", bg: "#F0FDFA", selected: "#00C9B1" },
 };
 
 export default function AddWorkload() {
@@ -60,7 +60,7 @@ export default function AddWorkload() {
         </div>
 
         {/* Form */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col" style={{ gap: 11, marginTop: 16 }}>
           {/* Title */}
           <div className="card">
             <label className="text-xs font-semibold mb-2 block" style={{ color: "#8B8FB5" }}>TASK TITLE</label>
@@ -215,7 +215,7 @@ export default function AddWorkload() {
           <button
             onClick={handleSubmit}
             disabled={!title || !deadline || submitting}
-            className="w-full py-4 rounded-2xl font-bold text-sm"
+            className="w-full py-5 rounded-2xl font-bold text-base"
             style={{
               background: !title || !deadline ? "#E5E7EB" : "#6C63FF",
               color: !title || !deadline ? "#9CA3AF" : "white",

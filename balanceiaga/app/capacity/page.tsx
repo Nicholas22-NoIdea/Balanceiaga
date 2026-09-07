@@ -7,11 +7,11 @@ export default function CapacityView() {
   const cap = mockCapacity;
 
   const calcRows = [
-    { label: "Available time",     value: cap.availableTime,       sign: "",  color: "#1A1A3E" },
-    { label: "Fixed commitments",  value: cap.fixedCommitments,    sign: "−", color: "#FF7043" },
-    { label: "Protected time",     value: cap.protectedTime,       sign: "−", color: "#FF6B9D" },
-    { label: "Planning buffer",    value: cap.buffer,              sign: "−", color: "#00C9B1" },
-    { label: "Realistic capacity", value: cap.realisticCapacity,   sign: "=", color: "#6C63FF" },
+    { label: "Available time", value: cap.availableTime, sign: "", color: "#1A1A3E" },
+    { label: "Fixed commitments", value: cap.fixedCommitments, sign: "−", color: "#FF7043" },
+    { label: "Protected time", value: cap.protectedTime, sign: "−", color: "#FF6B9D" },
+    { label: "Planning buffer", value: cap.buffer, sign: "−", color: "#00C9B1" },
+    { label: "Realistic capacity", value: cap.realisticCapacity, sign: "=", color: "#6C63FF" },
   ];
 
   return (
@@ -28,7 +28,7 @@ export default function CapacityView() {
           </Link>
           <div>
             <p className="text-lg font-bold" style={{ color: "#1A1A3E" }}>Capacity View</p>
-            <p className="text-xs" style={{ color: "#8B8FB5" }}>Week of 7–13 Sep 2026</p>
+            <p className="text-xs" style={{ color: "#8B8FB5", marginBottom: "10px" }}>Week of 7–13 Sep 2026</p>
           </div>
         </div>
 
