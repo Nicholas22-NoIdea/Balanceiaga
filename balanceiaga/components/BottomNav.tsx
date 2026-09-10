@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Calendar, Plus, CheckSquare, Clock } from "lucide-react";
+import { Home, Calendar, Plus, CheckSquare, Bell } from "lucide-react";
 
 const navItems = [
   { icon: Home, label: "Home", href: "/" },
   { icon: Calendar, label: "Schedule", href: "/capacity" },
   { icon: Plus, label: "", href: "/add-workload", isCenter: true },
   { icon: CheckSquare, label: "Tasks", href: "/overload" },
-  { icon: Clock, label: "Reflect", href: "/reflection" },
+  { icon: Bell, label: "Alerts", href: "/notifications", badge: 3 },
 ];
 
 export default function BottomNav() {
@@ -30,15 +30,23 @@ export default function BottomNav() {
           <Link
             key={item.href + item.label}
             href={item.href}
-            className="flex flex-col items-center gap-1"
+            className="flex flex-col items-center gap-1 relative"
           >
-            <item.icon
-              size={22}
-              color={pathname === item.href ? "#6C63FF" : "#B0B3D6"}
-            />
+            <div className="relative">
+              <item.icon
+                size={22}
+                color={pathname === item.href || pathname.startsWith(item.href + "/") ? "#6C63FF" : "#B0B3D6"}
+              />
+              {"badge" in item && item.badge ? (
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full text-white flex items-center justify-center"
+                  style={{ background: "#FF4444", fontSize: "9px", fontWeight: 700 }}>
+                  {item.badge}
+                </span>
+              ) : null}
+            </div>
             <span
               className="text-xs font-medium"
-              style={{ color: pathname === item.href ? "#6C63FF" : "#B0B3D6" }}
+              style={{ color: pathname === item.href || pathname.startsWith(item.href + "/") ? "#6C63FF" : "#B0B3D6" }}
             >
               {item.label}
             </span>
