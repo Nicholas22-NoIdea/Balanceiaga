@@ -18,6 +18,9 @@ export interface Task {
   isProtected: boolean;
   status: TaskStatus;
   scheduledSlots: ScheduledSlot[];
+  source?: "manual" | "classroom";
+  classroomCourse?: string;
+  isSubmitted?: boolean;
 }
 
 export interface ScheduledSlot {
@@ -178,6 +181,67 @@ export const mockTasks: Task[] = [
       { day: "Mon", date: "2026-09-07", startTime: "12:00", endTime: "14:00" },
     ],
   },
+  {
+    id: "task-7",
+    title: "SQL Queries",
+    category: "Academic",
+    deadline: "2026-09-18",
+    estimatedHours: 5,
+    sessions: 2,
+    sessionDuration: 2.5,
+    priority: "High",
+    flexibility: "Medium",
+    isProtected: false,
+    status: "pending",
+    source: "classroom",
+    classroomCourse: "Database Systems",
+    isSubmitted: false,
+    scheduledSlots: [
+      { day: "Thu", date: "2026-09-17", startTime: "14:00", endTime: "16:30" },
+      { day: "Fri", date: "2026-09-18", startTime: "10:00", endTime: "12:30" },
+    ],
+  },
+  {
+    id: "task-8",
+    title: "Machine Learning Model",
+    category: "Academic",
+    deadline: "2026-09-19",
+    estimatedHours: 9,
+    sessions: 3,
+    sessionDuration: 3,
+    priority: "High",
+    flexibility: "Low",
+    isProtected: true,
+    status: "pending",
+    source: "classroom",
+    classroomCourse: "Intro to AI",
+    isSubmitted: false,
+    scheduledSlots: [
+      { day: "Thu", date: "2026-09-17", startTime: "17:00", endTime: "20:00" },
+      { day: "Fri", date: "2026-09-18", startTime: "14:00", endTime: "18:00" },
+      { day: "Sat", date: "2026-09-19", startTime: "09:00", endTime: "11:00" },
+    ],
+  },
+  {
+    id: "task-9",
+    title: "Final Ethics Essay",
+    category: "Academic",
+    deadline: "2026-09-18",
+    estimatedHours: 7,
+    sessions: 2,
+    sessionDuration: 3.5,
+    priority: "High",
+    flexibility: "Medium",
+    isProtected: false,
+    status: "pending",
+    source: "classroom",
+    classroomCourse: "Tech Ethics",
+    isSubmitted: false,
+    scheduledSlots: [
+      { day: "Wed", date: "2026-09-16", startTime: "19:00", endTime: "22:00" },
+      { day: "Thu", date: "2026-09-17", startTime: "09:00", endTime: "13:00" },
+    ],
+  }
 ];
 
 export const mockCapacity: CapacityData = {

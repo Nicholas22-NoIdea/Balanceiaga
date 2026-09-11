@@ -1,4 +1,4 @@
-﻿// Smart Notification System - mock data, types, messages
+// Smart Notification System - mock data, types, messages
 
 export type NotifType = "starting_soon" | "task_ending" | "overrun" | "rebalance" | "motivational" | "forgotten" | "insight";
 export type TaskStatus = "scheduled" | "in_progress" | "completed" | "delayed" | "unknown";
@@ -59,6 +59,8 @@ export interface NotifSettings {
   motivationStyle: MotivationStyle;
   frequency: NotifFrequency;
   emailNotifications: boolean;
+  googleClassroomConnected: boolean;
+  googleClassroomLastSynced: string;
 }
 
 export const defaultSettings: NotifSettings = {
@@ -72,6 +74,8 @@ export const defaultSettings: NotifSettings = {
   motivationStyle: "calm",
   frequency: "important",
   emailNotifications: false,
+  googleClassroomConnected: false,
+  googleClassroomLastSynced: "",
 };
 
 export const mockBadges: Badge[] = [
