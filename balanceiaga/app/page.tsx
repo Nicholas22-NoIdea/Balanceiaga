@@ -15,10 +15,10 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="screen px-4 pt-8">
+      <div className="screen" style={{ padding: "24px 16px 120px 16px" }}>
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Link href="/profile" className="flex items-center gap-3">
+        <div className="flex items-center justify-between" style={{ marginBottom: "32px" }}>
+          <Link href="/profile" className="flex items-center" style={{ gap: "12px" }}>
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm"
               style={{ background: "linear-gradient(135deg, #6C63FF 0%, #A78BFA 100%)" }}
@@ -46,53 +46,85 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Load Summary Card */}
-        <div className="card mb-8" style={{ background: "linear-gradient(135deg, #1A1A3E 0%, #2D2B6B 100%)", margin: "10px 0" }}>
-          <div className="flex items-center justify-between mb-1">
-            <p className="text-base font-bold text-white">This Week&apos;s Load</p>
-            <span
-              className="pill"
-              style={{ background: "#FF4444", color: "white", fontSize: 11 }}
-            >
-              🔴 {cap.overloadPercent}% Capacity
-            </span>
-          </div>
-          <div className="flex items-center justify-center py-2">
-            <LoadRing
-              percent={cap.overloadPercent}
-              workloadHours={cap.totalWorkload}
-              capacityHours={cap.realisticCapacity}
-            />
-          </div>
-          <div
-            className="p-3 rounded-lg"
-            style={{ background: "rgba(255,68,68,0.15)", margin: "6px 0" }}
-          >
-            <p className="text-xs font-medium flex items-center justify-center" style={{ color: "#FFB3B3", padding: "3px" }}>
-              ⚠️ You&apos;re {cap.overloadHours}h over capacity.
-            </p>
-          </div>
-          <Link
-            href="/rebalance"
-            className="mt-4 w-full flex items-center justify-center gap-2 py-4 rounded-lg font-bold text-base"
-            style={{ background: "#6C63FF", color: "white" }}
-          >
-            Rebalance My Week
-            <TrendingUp size={20} />
+        {/* ── Today's Balance Module ── */}
+        {cap.totalWorkload > 12 && (
+          <Link href="/recovery/emergency" className="block w-full rounded-2xl flex items-center justify-between" style={{ padding: "16px", margin: "24px 0", background: "linear-gradient(135deg, #FF4444 0%, #D32F2F 100%)", boxShadow: "0 4px 16px rgba(255,68,68,0.3)" }}>
+            <div className="flex items-center" style={{ gap: "12px" }}>
+              <span className="text-2xl">🛟</span>
+              <div className="text-left">
+                <p className="text-sm font-bold text-white">Critical Overload Detected</p>
+                <p className="text-xs text-red-100" style={{ color: "rgba(255,255,255,0.8)" }}>Tap to triage your schedule</p>
+              </div>
+            </div>
+            <ChevronRight size={20} color="white" />
           </Link>
-        </div>
+        )}
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-2 gap-3 mb-8">
-          <div className="card">
-            <p className="text-xs font-medium mb-1" style={{ color: "#8B8FB5" }}>Workload</p>
-            <p className="text-2xl font-bold" style={{ color: "#1A1A3E" }}>{cap.totalWorkload}h</p>
-            <p className="text-xs" style={{ color: "#FF4444" }}>+{cap.overloadHours}h over</p>
+        <div className="relative" style={{ marginBottom: "32px" }}>
+          <div className="flex items-center justify-between" style={{ marginBottom: "16px", padding: "0 4px" }}>
+            <h2 className="text-xl font-black" style={{ color: "#1A1A3E" }}>Today&apos;s Balance</h2>
+            <div className="flex items-center rounded-full" style={{ padding: "4px 12px", gap: "6px", background: "#EEF0FF", border: "1px solid #D4D1FF" }}>
+              <span className="text-xs">🌱</span>
+              <span className="text-xs font-bold" style={{ color: "#6C63FF" }}>4 Day Streak</span>
+            </div>
           </div>
-          <div className="card">
-            <p className="text-xs font-medium mb-1" style={{ color: "#8B8FB5" }}>Capacity</p>
-            <p className="text-2xl font-bold" style={{ color: "#1A1A3E" }}>{cap.realisticCapacity}h</p>
-            <p className="text-xs" style={{ color: "#00C853" }}>Realistic max</p>
+
+          <div className="rounded-3xl" style={{ padding: "24px", background: "white", boxShadow: "0 4px 20px rgba(0,0,0,0.05)", border: "1px solid #F0F1FF" }}>
+            <div className="flex items-center justify-between" style={{ marginBottom: "24px" }}>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: "#FF4444" }}>Workload Score</p>
+                <div className="flex items-baseline" style={{ gap: "8px" }}>
+                  <span className="text-4xl font-black" style={{ color: "#FF4444" }}>84</span>
+                  <span className="text-base font-bold" style={{ color: "#FFB3B3" }}>/ 100 🔴</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col" style={{ gap: "12px", marginBottom: "24px" }}>
+              {[
+                { label: "Mental", val: cap.mentalLoad, color: "#6C63FF", bg: "#EEF0FF" },
+                { label: "Physical", val: cap.physicalLoad, color: "#00C9B1", bg: "#E0F7FA" },
+                { label: "Social", val: cap.socialLoad, color: "#FF6B9D", bg: "#FFF0F5" },
+                { label: "Time Pressure", val: cap.timePressure, color: "#FF7043", bg: "#FFF3F0" }
+              ].map(load => (
+                <div key={load.label} className="flex items-center" style={{ gap: "12px" }}>
+                  <span className="text-xs font-bold w-24" style={{ color: "#1A1A3E" }}>{load.label}</span>
+                  <div className="flex-1 h-2.5 rounded-full overflow-hidden" style={{ background: load.bg }}>
+                    <div className="h-full rounded-full" style={{ width: `${load.val}%`, background: load.color }} />
+                  </div>
+                  <span className="text-xs font-bold w-8 text-right" style={{ color: load.color }}>{load.val}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* AI Contextual Insight */}
+            <div className="rounded-2xl" style={{ padding: "16px", marginBottom: "16px", background: "#F8F9FF", border: "1px solid #E8E9FF" }}>
+              <div className="flex items-start" style={{ gap: "12px" }}>
+                <span className="text-xl">⚠️</span>
+                <div>
+                  <p className="text-sm font-bold mb-1" style={{ color: "#1A1A3E" }}>High mental workload today.</p>
+                  <p className="text-xs" style={{ color: "#8B8FB5", lineHeight: 1.5, marginBottom: "12px" }}>
+                    You&apos;ve been working for 2 hours and have 25 minutes before your next task.
+                  </p>
+                  <div className="flex items-center rounded-xl" style={{ padding: "12px", gap: "8px", marginBottom: "12px", background: "white" }}>
+                    <span className="text-lg">🚶</span>
+                    <div>
+                      <p className="text-xs font-bold" style={{ color: "#6C63FF" }}>Suggestion</p>
+                      <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>Take a 15-min reset</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex" style={{ gap: "8px" }}>
+                <Link href="/recovery" className="flex-1 rounded-xl text-center font-bold text-sm" style={{ padding: "12px 0", background: "#6C63FF", color: "white" }}>
+                  Recover
+                </Link>
+                <Link href="/rebalance" className="flex-1 rounded-xl text-center font-bold text-sm" style={{ padding: "12px 0", background: "#EEF0FF", color: "#6C63FF" }}>
+                  Rebalance Day
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 

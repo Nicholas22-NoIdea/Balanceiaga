@@ -21,6 +21,8 @@ export interface Task {
   source?: "manual" | "classroom";
   classroomCourse?: string;
   isSubmitted?: boolean;
+  isRecovery?: boolean;
+  recoveryType?: string;
 }
 
 export interface ScheduledSlot {
@@ -40,6 +42,10 @@ export interface CapacityData {
   overloadHours: number;
   overloadPercent: number;
   isOverloaded: boolean;
+  mentalLoad: number;
+  physicalLoad: number;
+  socialLoad: number;
+  timePressure: number;
   weekDays: WeekDay[];
 }
 
@@ -254,6 +260,10 @@ export const mockCapacity: CapacityData = {
   overloadHours: 5,
   overloadPercent: 145,
   isOverloaded: true,
+  mentalLoad: 85,
+  physicalLoad: 50,
+  socialLoad: 40,
+  timePressure: 90,
   weekDays: [
     { day: "Mon", date: "2026-09-07", availableHours: 4, scheduledHours: 6, isOverloaded: true },
     { day: "Tue", date: "2026-09-08", availableHours: 4, scheduledHours: 4, isOverloaded: false },

@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Calendar, Plus, CheckSquare, Bell } from "lucide-react";
+import { Home, Calendar, Plus, Leaf, Bell } from "lucide-react";
 
 const navItems = [
   { icon: Home, label: "Home", href: "/" },
   { icon: Calendar, label: "Schedule", href: "/capacity" },
   { icon: Plus, label: "", href: "/add-workload", isCenter: true },
-  { icon: CheckSquare, label: "Tasks", href: "/overload" },
+  { icon: Leaf, label: "Recovery", href: "/recovery" },
   { icon: Bell, label: "Alerts", href: "/notifications", badge: 3 },
 ];
 

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowLeft, Play, Pause, CheckCircle2, Zap, Brain, Clock, AlertTriangle, ChevronRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
@@ -183,17 +184,17 @@ export default function TaskStatusPage() {
         {showRebalance && (
           <div style={{ marginBottom: "23px" }}>
             <p className="text-sm font-bold mb-3" style={{ color: "#1A1A3E" }}>✨ Smart Rebalancing Options</p>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col" style={{ gap: "12px" }}>
               {rebalanceOptions.map((opt) => (
                 <button key={opt.id} onClick={() => setChosenRebalance(opt.id)}
-                  className="rounded-2xl p-4 text-left"
-                  style={{ background: chosenRebalance === opt.id ? "#EEF0FF" : "white", border: `2px solid ${chosenRebalance === opt.id ? "#6C63FF" : opt.recommended ? "#D4D1FF" : "#F0F1FF"}`, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
-                  <div className="flex items-start justify-between mb-2">
+                  className="rounded-2xl text-left"
+                  style={{ padding: "16px", background: chosenRebalance === opt.id ? "#EEF0FF" : "white", border: `2px solid ${chosenRebalance === opt.id ? "#6C63FF" : opt.recommended ? "#D4D1FF" : "#F0F1FF"}`, boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+                  <div className="flex items-start justify-between" style={{ marginBottom: "8px" }}>
                     <div className="flex items-center gap-2">
                       <span className="text-xl">{opt.emoji}</span>
                       <div>
                         <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>{opt.title}</p>
-                        {opt.recommended && <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "#EEF0FF", color: "#6C63FF" }}>Recommended</span>}
+                        {opt.recommended && <span className="text-xs rounded-full font-bold inline-block" style={{ padding: "2px 8px", background: "#EEF0FF", color: "#6C63FF" }}>Recommended</span>}
                       </div>
                     </div>
                     <div className="text-right">
@@ -211,7 +212,7 @@ export default function TaskStatusPage() {
             </div>
             {chosenRebalance && (
               <button onClick={() => { setShowRebalance(false); setChosenRebalance(null); }}
-                className="w-full py-4 rounded-2xl font-bold text-sm mt-3 text-white" style={{ background: "#6C63FF" }}>
+                className="w-full rounded-2xl font-bold text-sm text-white" style={{ padding: "7px 0", marginTop: "12px", background: "#6C63FF" }}>
                 Apply Rebalancing ✓
               </button>
             )}
@@ -220,14 +221,37 @@ export default function TaskStatusPage() {
 
         {/* Completion */}
         {showComplete && (
-          <div className="rounded-2xl p-5 text-center" style={{ marginBottom: "23px", background: "linear-gradient(135deg, #00C853, #00B341)" }}>
-            <div className="text-4xl mb-2">🎉</div>
-            <p className="text-lg font-extrabold text-white mb-1">Task Completed!</p>
-            <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.7)" }}>Actual: {formatTime(elapsed)} • Planned: {formatTime(plannedSeconds)}</p>
-            <div className="mt-3 px-4 py-2 rounded-xl inline-block" style={{ background: "rgba(255,255,255,0.2)" }}>
-              <p className="text-xs font-bold text-white">🧠 Badge earned: Deep Work</p>
+          <>
+            <div className="rounded-2xl p-5 text-center" style={{ marginBottom: "23px", background: "linear-gradient(135deg, #00C853, #00B341)", boxShadow: "0 4px 16px rgba(0,200,83,0.3)" }}>
+              <div className="text-4xl mb-2">🎉</div>
+              <p className="text-lg font-extrabold text-white mb-1">Nice work!</p>
+              <p className="text-sm text-white mb-3" style={{ opacity: 0.9 }}>One difficult task down. Take a moment to reset.</p>
+              <div className="mt-1 px-4 py-2 rounded-xl inline-block" style={{ background: "rgba(255,255,255,0.2)" }}>
+                <p className="text-xs font-bold text-white">🧠 Badge earned: Deep Work</p>
+              </div>
             </div>
-          </div>
+
+            {/* Contextual Recovery Insight */}
+            <div className="rounded-2xl" style={{ padding: "20px", marginBottom: "24px", background: "white", border: "1px solid #F0F1FF", boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
+              <div className="flex items-start" style={{ gap: "12px", marginBottom: "16px" }}>
+                <span className="text-2xl">🌱</span>
+                <div>
+                  <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>Want to take a short reset?</p>
+                  <p className="text-xs" style={{ color: "#8B8FB5", lineHeight: 1.5 }}>
+                    You just completed a mentally demanding assignment. You have 20 minutes before your next activity.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col" style={{ gap: "8px" }}>
+                <Link href="/recovery" className="w-full rounded-xl text-center font-bold text-sm text-white transition-transform active:scale-95" style={{ padding: "12px 0", background: "#6C63FF" }}>
+                  Take a Break
+                </Link>
+                <Link href="/" className="w-full rounded-xl text-center font-bold text-sm transition-transform active:scale-95" style={{ padding: "12px 0", background: "#F0F1FF", color: "#6C63FF" }}>
+                  Continue (Not Now)
+                </Link>
+              </div>
+            </div>
+          </>
         )}
 
         {/* Action Buttons */}
@@ -235,10 +259,10 @@ export default function TaskStatusPage() {
           <div className="flex flex-col gap-2">
             {status === "scheduled" && (
               <>
-                <button onClick={handleStart} className="w-full py-4 rounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ background: "#6C63FF" }}>
+                <button onClick={handleStart} className="w-full rounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ padding: "7px 0", background: "#6C63FF" }}>
                   <Play size={18} /> Start Now
                 </button>
-                <div className="flex gap-2">
+                <div className="flex gap-2" >
                   <button onClick={() => setShowDelayPicker(!showDelayPicker)} className="flex-1 py-3 rounded-2xl font-bold text-sm" style={{ background: "#F0F1FF", color: "#6C63FF" }}>⏱ Delay</button>
                   <button onClick={() => setShowRebalance(!showRebalance)} className="flex-1 py-3 rounded-2xl font-bold text-sm" style={{ background: "#F0F1FF", color: "#6C63FF" }}>⚡ Rebalance</button>
                 </div>
@@ -256,7 +280,7 @@ export default function TaskStatusPage() {
             )}
             {status === "in_progress" && (
               <>
-                <button onClick={() => setShowEndModal(true)} className="w-full py-4 rounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ background: "#00C853" }}>
+                <button onClick={() => setShowEndModal(true)} className="w-full srounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ padding: "7px 0", background: "#00C853" }}>
                   <CheckCircle2 size={18} /> Mark Finished
                 </button>
                 <button onClick={handlePause} className="w-full py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2" style={{ background: "#F0F1FF", color: "#FF7043" }}>
