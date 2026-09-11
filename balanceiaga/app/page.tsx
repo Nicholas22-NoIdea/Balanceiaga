@@ -97,7 +97,7 @@ export default function Dashboard() {
         </div>
 
         {/* Category Breakdown */}
-        <div className="card mb-8">
+        <div className="card mb-6">
           <div className="flex items-center justify-between mb-4">
             <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Category Breakdown</p>
             <Link href="/capacity" className="flex items-center gap-1">
@@ -111,6 +111,20 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
+
+        {/* Monthly View Link */}
+        <Link href="/monthly" className="card mb-8 flex items-center justify-between" style={{ background: "#F8F9FF", border: "1px solid #E8E9FF" }}>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+              <span className="text-lg">📅</span>
+            </div>
+            <div>
+              <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>Monthly Calendar</p>
+              <p className="text-xs" style={{ color: "#8B8FB5" }}>Plan ahead & prevent overload</p>
+            </div>
+          </div>
+          <ChevronRight size={16} color="#6C63FF" />
+        </Link>
 
         {/* Today's Tasks */}
         <div className="mb-6">

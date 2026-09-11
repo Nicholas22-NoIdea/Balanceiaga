@@ -121,6 +121,8 @@ export default function ProfilePage() {
           ))}
         </div>
 
+
+
         {/* ── Counter + Continue — inline, always visible ── */}
         <div
           className="flex items-center justify-between px-5 py-4 rounded-2xl"
