@@ -5,26 +5,31 @@ import { ArrowLeft, TrendingUp, Calendar, AlertTriangle, ChevronRight } from "lu
 import BottomNav from "@/components/BottomNav";
 import { mockTasks } from "@/lib/mockData";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function MonthlyView() {
   const router = useRouter();
-  const [connected, setConnected] = useState(false);
+  const { data: session } = useSession();
   const [lastSynced, setLastSynced] = useState("");
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 8, 1));
 
-  // Mocking calendar for September 2026
-  // Sep 1, 2026 is a Tuesday.
-  // We'll generate a grid where Monday is the first day.
-  // So index 0 (Mon) is empty, index 1 (Tue) is 1.
-  const daysInMonth = 30;
-  const startOffset = 1; // Tuesday
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthName = monthNames[month];
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  let startOffset = new Date(year, month, 1).getDay() - 1;
+  if (startOffset === -1) startOffset = 6;
 
   const calendarCells = [];
   for (let i = 0; i < startOffset; i++) {
     calendarCells.push(null);
   }
   for (let i = 1; i <= daysInMonth; i++) {
-    const currentStr = `2026-09-${i.toString().padStart(2, "0")}`;
+    const currentStr = `${year}-${(month + 1).toString().padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
     const dayTasks = mockTasks.filter(t => t.scheduledSlots.some(s => s.date === currentStr));
 
     const totalWorkload = dayTasks.reduce((sum, t) => {
@@ -72,21 +77,21 @@ export default function MonthlyView() {
           </button>
           <div>
             <p className="text-lg font-bold" style={{ color: "#1A1A3E" }}>Monthly View</p>
-            <p className="text-xs" style={{ color: "#8B8FB5" }}>September 2026</p>
+            <p className="text-xs" style={{ color: "#8B8FB5" }}>{monthName} {year}</p>
           </div>
         </div>
 
         {/* ── Calendar Grid ── */}
         <div className="rounded-2xl mb-6" style={{ padding: "16px", background: "white", marginBottom: "24px" }}>
           <div className="flex items-center justify-between mb-4" style={{ marginBottom: "16px" }}>
-            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>September 2026</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>{monthName} {year}</p>
             <div className="flex gap-1">
-              <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "#EEF0FF" }}>
+              <button onClick={() => setCurrentDate(new Date(year, month - 1, 1))} className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "#EEF0FF" }}>
                 <ChevronRight className="rotate-180" size={14} color="#6C63FF" />
-              </div>
-              <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "#EEF0FF" }}>
+              </button>
+              <button onClick={() => setCurrentDate(new Date(year, month + 1, 1))} className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "#EEF0FF" }}>
                 <ChevronRight size={14} color="#6C63FF" />
-              </div>
+              </button>
             </div>
           </div>
 
@@ -141,12 +146,9 @@ export default function MonthlyView() {
             </div>
           </div>
 
-          {!connected ? (
+          {!session ? (
             <button
-              onClick={() => {
-                setConnected(true);
-                setLastSynced("Just now");
-              }}
+              onClick={() => signIn("google")}
               className="w-full rounded-xl font-bold text-sm flex items-center justify-center gap-2"
               style={{ padding: "10px 0", margin: "5px 0", background: "#6C63FF", color: "white" }}
             >
@@ -156,18 +158,33 @@ export default function MonthlyView() {
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "rgba(0, 200, 83, 0.1)" }}>
                 <span className="text-xs font-bold" style={{ color: "#00C853" }}>✅ Connected</span>
-                <span className="text-xs font-medium ml-auto" style={{ color: "#8B8FB5" }}>Last synced: {lastSynced}</span>
+                <span className="text-xs font-medium ml-auto" style={{ color: "#8B8FB5" }}>Last synced: {lastSynced || "Never"}</span>
               </div>
               <div className="flex gap-2" style={{ margin: "3px 0" }}>
                 <button
-                  onClick={() => setLastSynced("Just now")}
+                  onClick={async () => {
+                    setIsSyncing(true);
+                    try {
+                      const res = await fetch("/api/calendar");
+                      if (res.ok) {
+                        setLastSynced("Just now");
+                      } else {
+                        console.error("Failed to sync calendar");
+                      }
+                    } catch (e) {
+                      console.error("Sync error", e);
+                    } finally {
+                      setIsSyncing(false);
+                    }
+                  }}
+                  disabled={isSyncing}
                   className="flex-1 rounded-xl font-bold text-sm"
-                  style={{ padding: "7px 0", background: "#1A1A3E", color: "white" }}
+                  style={{ padding: "7px 0", background: "#1A1A3E", color: "white", opacity: isSyncing ? 0.7 : 1 }}
                 >
-                  Sync Now
+                  {isSyncing ? "Syncing..." : "Sync Now"}
                 </button>
                 <button
-                  onClick={() => setConnected(false)}
+                  onClick={() => signOut()}
                   className="rounded-xl font-bold text-sm"
                   style={{ padding: "7px 16px", background: "#FFF0F0", color: "#FF4444" }}
                 >
@@ -180,7 +197,7 @@ export default function MonthlyView() {
 
         {/* ── Monthly Workload Insights ── */}
         <div className="mb-6" style={{ marginBottom: "24px" }}>
-          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E", marginBottom: "12px" }}>📊 September Workload</p>
+          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E", marginBottom: "12px" }}>📊 {monthName} Workload</p>
           <div className="rounded-2xl" style={{ padding: "16px", background: "linear-gradient(135deg, #1A1A3E 0%, #2D2B6B 100%)" }}>
             <div className="grid grid-cols-2 gap-4 mb-4" style={{ marginBottom: "16px" }}>
               <div>
@@ -206,7 +223,7 @@ export default function MonthlyView() {
 
       {/* ── Day Details Modal ── */}
       {selectedDay && (() => {
-        const selectedDateStr = `2026-09-${selectedDay.toString().padStart(2, "0")}`;
+        const selectedDateStr = `${year}-${(month + 1).toString().padStart(2, "0")}-${selectedDay.toString().padStart(2, "0")}`;
         const dayTasks = mockTasks.filter(t => t.scheduledSlots.some(s => s.date === selectedDateStr));
         const totalWorkload = dayTasks.reduce((sum, t) => {
           const slot = t.scheduledSlots.find(s => s.date === selectedDateStr);
@@ -230,7 +247,7 @@ export default function MonthlyView() {
             <div className="bg-white rounded-t-3xl" style={{ padding: "24px 24px 100px 24px", maxHeight: "80vh", overflowY: "auto" }}>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="text-xl font-bold" style={{ color: "#1A1A3E", marginBottom: "4px" }}>{selectedDay} September</p>
+                  <p className="text-xl font-bold" style={{ color: "#1A1A3E", marginBottom: "4px" }}>{selectedDay} {monthName}</p>
                   <p className="text-sm font-medium" style={{ color: "#8B8FB5" }}>
                     Workload: {workloadScore}/100 {workloadScore > 75 ? "🔴" : workloadScore > 40 ? "🟡" : "🟢"}
                   </p>
@@ -259,7 +276,7 @@ export default function MonthlyView() {
                           <div className="flex flex-col">
                             <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#9CA3AF", marginBottom: "2px" }}>Deadline</span>
                             <span className="text-sm font-bold" style={{ color: task.deadline === selectedDateStr ? "#FF4444" : "#1A1A3E" }}>
-                              {new Date(task.deadline).getDate()} Sep
+                              {new Date(task.deadline).getDate()} {new Date(task.deadline).toLocaleString('default', { month: 'short' })}
                             </span>
                           </div>
                         </div>
