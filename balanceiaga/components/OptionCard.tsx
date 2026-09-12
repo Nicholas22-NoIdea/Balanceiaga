@@ -21,9 +21,10 @@ interface OptionCardProps {
   option: RebalanceOption;
   onAccept: (id: string) => void;
   onReject: (id: string) => void;
+  onEdit?: (id: string) => void;
 }
 
-export default function OptionCard({ option, onAccept, onReject }: OptionCardProps) {
+export default function OptionCard({ option, onAccept, onReject, onEdit }: OptionCardProps) {
   const [expanded, setExpanded] = useState(option.isRecommended);
 
   return (
@@ -123,7 +124,7 @@ export default function OptionCard({ option, onAccept, onReject }: OptionCardPro
           Accept
         </button>
         <button
-          onClick={() => alert("Edit mode activated!")}
+          onClick={() => onEdit?.(option.id)}
           className="flex-1 py-3 rounded-xl text-sm font-semibold transition-transform active:scale-95"
           style={{ background: "#EEF0FF", color: "#6C63FF" }}
         >

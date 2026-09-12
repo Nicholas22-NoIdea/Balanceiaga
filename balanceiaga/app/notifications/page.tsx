@@ -343,26 +343,6 @@ export default function NotificationsPage() {
           </button>
         </div>
 
-        {/* Live Task Banner */}
-        <button onClick={() => router.push("/notifications/task-status")}
-          className="w-full rounded-2xl flex items-center gap-3"
-          style={{ marginBottom: "15px", padding: "16px", background: "linear-gradient(135deg, #1A1A3E, #2D2B6B)" }}>
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(108,99,255,0.4)" }}>
-            <Brain size={20} color="white" />
-          </div>
-          <div className="flex-1 text-left">
-            <p className="text-sm font-bold text-white">Database Assignment</p>
-            <p className="text-xs" style={{ color: "#9B99CC" }}>8:00 PM – 10:00 PM · Tap to track live</p>
-          </div>
-          <div>
-            <div className="flex items-center gap-1 px-2 py-1 rounded-full mb-1" style={{ background: "rgba(108,99,255,0.3)" }}>
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse " style={{ margin: "0 5px" }} />
-              <span className="text-xs font-bold" style={{ marginRight: "5px", color: "#A89CFF" }}>Scheduled</span>
-            </div>
-            <ChevronRight size={16} color="#9B99CC" className="ml-auto" />
-          </div>
-        </button>
-
         {/* Tabs */}
         <div className="flex gap-1 rounded-2xl" style={{ marginBottom: "15px", padding: "6px", background: "#EBEBFF" }}>
           <TabButton value="all" label="All" count={unread || undefined} />
