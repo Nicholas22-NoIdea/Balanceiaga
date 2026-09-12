@@ -164,26 +164,26 @@ export default function TaskStatusPage() {
 
         {/* Overrun Warning */}
         {isOverrun && overrunMinutes > 0 && !showRebalance && (
-          <div className="rounded-2xl p-4" style={{ marginBottom: "23px", background: "#FFF0F0", border: "1.5px solid #FFD0D0" }}>
-            <div className="flex items-center gap-2 mb-1">
-              <AlertTriangle size={16} color="#FF4444" />
-              <p className="text-sm font-bold" style={{ color: "#FF4444" }}>Task running {overrunMinutes} min over schedule</p>
+          <div className="rounded-3xl" style={{ padding: "24px", marginBottom: "24px", background: "#FFF0F0", border: "1px solid #FFD0D0" }}>
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangle size={18} color="#FF4444" />
+              <p className="text-base font-bold" style={{ color: "#FF4444" }}>Task running {overrunMinutes} min over schedule</p>
             </div>
-            <p className="text-xs mb-3" style={{ color: "#FF7070" }}>
+            <p className="text-xs mb-4" style={{ color: "#FF7070", lineHeight: 1.5 }}>
               Your {TASK.nextTask} starts at {TASK.nextTaskTime}. Continuing may affect your study session and recovery time.
             </p>
             <div className="flex gap-2">
-              <button onClick={() => setShowRebalance(true)} className="flex-1 py-2 rounded-xl text-xs font-bold text-white" style={{ background: "#6C63FF" }}>⚡ Rebalance</button>
-              <button className="flex-1 py-2 rounded-xl text-xs font-bold" style={{ background: "#F0F1FF", color: "#6C63FF" }}>Continue</button>
-              <button className="flex-1 py-2 rounded-xl text-xs font-bold" style={{ background: "#FFF3F0", color: "#FF7043" }}>Move Next</button>
+              <button onClick={() => setShowRebalance(true)} className="flex-1 py-3 rounded-xl text-xs font-bold text-white transition-transform active:scale-95" style={{ background: "#6C63FF" }}>✨ Rebalance</button>
+              <button className="flex-1 py-3 rounded-xl text-xs font-bold transition-transform active:scale-95" style={{ background: "white", color: "#6C63FF" }}>Continue</button>
+              <button className="flex-1 py-3 rounded-xl text-xs font-bold transition-transform active:scale-95" style={{ background: "#FFF3F0", color: "#FF7043" }}>Move Next</button>
             </div>
           </div>
         )}
 
         {/* Rebalance Options */}
         {showRebalance && (
-          <div style={{ marginBottom: "23px" }}>
-            <p className="text-sm font-bold mb-3" style={{ color: "#1A1A3E" }}>✨ Smart Rebalancing Options</p>
+          <div className="rounded-3xl" style={{ padding: "24px", background: "#F8F9FF", border: "1px solid #E8E9FF", marginBottom: "24px" }}>
+            <p className="text-base font-bold mb-4" style={{ color: "#1A1A3E" }}>✨ Smart Rebalancing Options</p>
             <div className="flex flex-col" style={{ gap: "12px" }}>
               {rebalanceOptions.map((opt) => (
                 <button key={opt.id} onClick={() => setChosenRebalance(opt.id)}
@@ -194,7 +194,7 @@ export default function TaskStatusPage() {
                       <span className="text-xl">{opt.emoji}</span>
                       <div>
                         <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>{opt.title}</p>
-                        {opt.recommended && <span className="text-xs rounded-full font-bold inline-block" style={{ padding: "2px 8px", background: "#EEF0FF", color: "#6C63FF" }}>Recommended</span>}
+                        {opt.recommended && <span className="text-xs rounded-full font-bold inline-block mt-1" style={{ padding: "2px 8px", background: "#EEF0FF", color: "#6C63FF" }}>Recommended</span>}
                       </div>
                     </div>
                     <div className="text-right">
@@ -212,7 +212,7 @@ export default function TaskStatusPage() {
             </div>
             {chosenRebalance && (
               <button onClick={() => { setShowRebalance(false); setChosenRebalance(null); }}
-                className="w-full rounded-2xl font-bold text-sm text-white" style={{ padding: "7px 0", marginTop: "12px", background: "#6C63FF" }}>
+                className="w-full rounded-xl font-bold text-sm text-white" style={{ padding: "12px 0", marginTop: "16px", background: "#6C63FF" }}>
                 Apply Rebalancing ✓
               </button>
             )}
@@ -222,7 +222,7 @@ export default function TaskStatusPage() {
         {/* Completion */}
         {showComplete && (
           <>
-            <div className="rounded-2xl p-5 text-center" style={{ marginBottom: "23px", background: "linear-gradient(135deg, #00C853, #00B341)", boxShadow: "0 4px 16px rgba(0,200,83,0.3)" }}>
+            <div className="rounded-3xl text-center" style={{ padding: "24px", marginBottom: "24px", background: "linear-gradient(135deg, #00C853, #00B341)", boxShadow: "0 4px 16px rgba(0,200,83,0.3)" }}>
               <div className="text-4xl mb-2">🎉</div>
               <p className="text-lg font-extrabold text-white mb-1">Nice work!</p>
               <p className="text-sm text-white mb-3" style={{ opacity: 0.9 }}>One difficult task down. Take a moment to reset.</p>
@@ -232,7 +232,7 @@ export default function TaskStatusPage() {
             </div>
 
             {/* Contextual Recovery Insight */}
-            <div className="rounded-2xl" style={{ padding: "20px", marginBottom: "24px", background: "white", border: "1px solid #F0F1FF", boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
+            <div className="rounded-3xl" style={{ padding: "24px", marginBottom: "24px", background: "white", border: "1px solid #F0F1FF", boxShadow: "0 4px 16px rgba(0,0,0,0.05)" }}>
               <div className="flex items-start" style={{ gap: "12px", marginBottom: "16px" }}>
                 <span className="text-2xl">🌱</span>
                 <div>
@@ -259,16 +259,16 @@ export default function TaskStatusPage() {
           <div className="flex flex-col gap-2">
             {status === "scheduled" && (
               <>
-                <button onClick={handleStart} className="w-full rounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ padding: "7px 0", background: "#6C63FF" }}>
+                <button onClick={handleStart} className="w-full rounded-2xl font-bold text-base text-white flex items-center justify-center gap-2 transition-transform active:scale-95" style={{ padding: "10px 0", background: "#6C63FF" }}>
                   <Play size={18} /> Start Now
                 </button>
                 <div className="flex gap-2" >
-                  <button onClick={() => setShowDelayPicker(!showDelayPicker)} className="flex-1 py-3 rounded-2xl font-bold text-sm" style={{ background: "#F0F1FF", color: "#6C63FF" }}>⏱ Delay</button>
-                  <button onClick={() => setShowRebalance(!showRebalance)} className="flex-1 py-3 rounded-2xl font-bold text-sm" style={{ background: "#F0F1FF", color: "#6C63FF" }}>⚡ Rebalance</button>
+                  <button onClick={() => setShowDelayPicker(!showDelayPicker)} className="flex-1 py-3 rounded-2xl font-bold text-sm transition-transform active:scale-95" style={{ background: "#F0F1FF", color: "#6C63FF" }}>⏳ Delay</button>
+                  <button onClick={() => setShowRebalance(!showRebalance)} className="flex-1 py-3 rounded-2xl font-bold text-sm transition-transform active:scale-95" style={{ background: "#F0F1FF", color: "#6C63FF" }}>✨ Rebalance</button>
                 </div>
                 {showDelayPicker && (
-                  <div className="card">
-                    <p className="text-xs font-semibold mb-3" style={{ color: "#8B8FB5" }}>DELAY BY</p>
+                  <div className="rounded-3xl" style={{ padding: "24px", background: "#F8F9FF", border: "1px solid #E8E9FF", marginTop: "8px" }}>
+                    <p className="text-sm font-bold mb-3" style={{ color: "#1A1A3E" }}>DELAY BY</p>
                     <div className="flex gap-2">
                       {["15 min", "30 min", "1 hour"].map((d) => (
                         <button key={d} onClick={() => setShowDelayPicker(false)} className="flex-1 py-2 rounded-xl text-sm font-bold" style={{ background: "#EEF0FF", color: "#6C63FF" }}>{d}</button>
@@ -280,16 +280,16 @@ export default function TaskStatusPage() {
             )}
             {status === "in_progress" && (
               <>
-                <button onClick={() => setShowEndModal(true)} className="w-full srounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ padding: "7px 0", background: "#00C853" }}>
+                <button onClick={() => setShowEndModal(true)} className="w-full rounded-2xl font-bold text-base text-white flex items-center justify-center transition-transform active:scale-95" style={{ padding: "10px 0", gap: "8px", background: "#00C853" }}>
                   <CheckCircle2 size={18} /> Mark Finished
                 </button>
-                <button onClick={handlePause} className="w-full py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2" style={{ background: "#F0F1FF", color: "#FF7043" }}>
+                <button onClick={handlePause} className="w-full rounded-2xl font-bold text-sm flex items-center justify-center transition-transform active:scale-95" style={{ padding: "10px 0", gap: "8px", background: "#F0F1FF", color: "#FF7043" }}>
                   <Pause size={16} /> Pause
                 </button>
               </>
             )}
             {status === "paused" && (
-              <button onClick={handleResume} className="w-full py-4 rounded-2xl font-bold text-base text-white flex items-center justify-center gap-2" style={{ background: "#6C63FF" }}>
+              <button onClick={handleResume} className="w-full rounded-2xl font-bold text-base text-white flex items-center justify-center transition-transform active:scale-95" style={{ padding: "10px 0", gap: "8px", background: "#6C63FF" }}>
                 <Play size={18} /> Resume
               </button>
             )}
@@ -308,10 +308,10 @@ export default function TaskStatusPage() {
                   <div className="w-10 h-1 rounded-full mx-auto mb-4" style={{ background: "#E5E7EB" }} />
                   <p className="text-base font-bold text-center mb-1" style={{ color: "#1A1A3E" }}>⏰ Scheduled end time reached</p>
                   <p className="text-sm text-center mb-5" style={{ color: "#8B8FB5" }}>Are you finished with {TASK.name}?</p>
-                  <div className="flex flex-col gap-2">
-                    <button onClick={handleFinish} className="w-full py-4 rounded-2xl font-bold text-base text-white" style={{ background: "#00C853" }}>✓ Finished</button>
-                    <button onClick={() => setStillWorkingChoice("pick")} className="w-full py-3 rounded-2xl font-bold text-sm" style={{ background: "#F0F1FF", color: "#6C63FF" }}>⏱ Still Working</button>
-                    <button onClick={() => { setShowEndModal(false); handlePause(); }} className="w-full py-3 rounded-2xl font-bold text-sm" style={{ background: "#FFF3F0", color: "#FF7043" }}>⏸ Pause</button>
+                  <div className="flex flex-col" style={{ gap: "12px" }}>
+                    <button onClick={handleFinish} className="w-full rounded-2xl font-bold text-base text-white transition-transform active:scale-95" style={{ marginTop: "10px", padding: "16px 0", background: "#00C853" }}>✓ Finished</button>
+                    <button onClick={() => setStillWorkingChoice("pick")} className="w-full rounded-2xl font-bold text-sm transition-transform active:scale-95" style={{ padding: "16px 0", background: "#F0F1FF", color: "#6C63FF" }}>⏱ Still Working</button>
+                    <button onClick={() => { setShowEndModal(false); handlePause(); }} className="w-full rounded-2xl font-bold text-sm transition-transform active:scale-95" style={{ padding: "16px 0", background: "#FFF3F0", color: "#FF7043" }}>⏸ Pause</button>
                   </div>
                 </>
               ) : (
@@ -319,10 +319,10 @@ export default function TaskStatusPage() {
                   <div className="w-10 h-1 rounded-full mx-auto mb-4" style={{ background: "#E5E7EB" }} />
                   <p className="text-base font-bold text-center mb-1" style={{ color: "#1A1A3E" }}>How much longer?</p>
                   <p className="text-xs text-center mb-5" style={{ color: "#8B8FB5" }}>We will update your predicted end time and check for conflicts.</p>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2" style={{ gap: "12px" }}>
                     {["15 minutes", "30 minutes", "1 hour", "Not sure"].map((opt) => (
                       <button key={opt} onClick={() => { setShowEndModal(false); setStillWorkingChoice(null); }}
-                        className="py-3 rounded-2xl font-bold text-sm" style={{ background: "#EEF0FF", color: "#6C63FF" }}>{opt}</button>
+                        className="rounded-2xl font-bold text-sm transition-transform active:scale-95" style={{ padding: "16px 0", background: "#EEF0FF", color: "#6C63FF" }}>{opt}</button>
                     ))}
                   </div>
                 </>

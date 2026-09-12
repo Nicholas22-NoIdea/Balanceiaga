@@ -202,38 +202,6 @@ export default function MonthlyView() {
           </div>
         </div>
 
-        {/* ── Deadline Heatmap ── */}
-        <div className="mb-6" style={{ marginBottom: "24px" }}>
-          <div className="flex items-center justify-between mb-3" style={{ marginBottom: "12px" }}>
-            <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Deadline Clusters</p>
-          </div>
-
-          <div className="rounded-2xl mb-3" style={{ padding: "16px", border: "1px solid rgba(255,68,68,0.2)", background: "#FFF0F0", marginBottom: "12px" }}>
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5"><AlertTriangle size={18} color="#FF4444" /></div>
-              <div>
-                <p className="text-sm font-bold mb-1" style={{ color: "#D32F2F", marginBottom: "4px" }}>⚠️ 18 September Cluster</p>
-                <p className="text-xs mb-3" style={{ color: "#B71C1C", marginBottom: "12px", lineHeight: 1.5 }}>You have 3 major assignments due within 2 days. Starting them only on their due dates may create a high workload.</p>
-                <Link href="/rebalance" className="inline-flex items-center gap-1.5 rounded-lg text-xs font-bold" style={{ padding: "8px 12px", background: "#FF4444", color: "white" }}>
-                  Help Me Plan <TrendingUp size={12} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── AI Long-Term Planning ── */}
-        <div className="mb-6" style={{ marginBottom: "24px" }}>
-          <p className="text-base font-bold mb-3" style={{ color: "#1A1A3E", marginBottom: "12px" }}>🔮 Looking Ahead</p>
-          <div className="rounded-2xl" style={{ padding: "16px", background: "#F8F9FF" }}>
-            <p className="text-sm font-semibold mb-2" style={{ color: "#1A1A3E", marginBottom: "8px" }}>The week of Sep 14–20 is heavily loaded.</p>
-            <p className="text-xs mb-3" style={{ color: "#6B7280", marginBottom: "12px", lineHeight: 1.5 }}>You currently have free capacity this week. **Suggestion:** Start your SQL Queries project this week to reduce next week's workload.</p>
-            <Link href="/rebalance" className="w-full rounded-xl font-bold text-xs flex items-center justify-center gap-2" style={{ padding: "12px 0", background: "#1A1A3E", color: "white" }}>
-              Preview Rebalance
-            </Link>
-          </div>
-        </div>
-
       </div>
 
       {/* ── Day Details Modal ── */}

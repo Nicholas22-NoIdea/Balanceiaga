@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Bell, ChevronRight, TrendingUp } from "lucide-react";
+import { Bell, ChevronRight, TrendingUp, AlertTriangle } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import LoadRing from "@/components/LoadRing";
 import CategoryBar from "@/components/CategoryBar";
@@ -145,7 +145,7 @@ export default function Dashboard() {
         </div>
 
         {/* Monthly View Link */}
-        <Link href="/monthly" className="card mb-8 flex items-center justify-between" style={{ background: "#F8F9FF", border: "1px solid #E8E9FF" }}>
+        <Link href="/monthly" className="card mb-6 flex items-center justify-between" style={{ background: "#F8F9FF", border: "1px solid #E8E9FF" }}>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
               <span className="text-lg">📅</span>
@@ -158,10 +158,30 @@ export default function Dashboard() {
           <ChevronRight size={16} color="#6C63FF" />
         </Link>
 
+        {/* 📉 Deadline Heatmap (Moved from Monthly) 📉 */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between" >
+            <p className="text-base font-bold" style={{ marginBottom: "10px", color: "#1A1A3E" }}>Deadline Clusters</p>
+          </div>
+
+          <div className="rounded-2xl" style={{ padding: "16px", border: "1px solid rgba(255,68,68,0.2)", background: "#FFF0F0" }}>
+            <div className="flex items-start" style={{ gap: 7 }}>
+              <div className="mt-0.5 flex-shrink-0"><AlertTriangle size={18} color="#FF4444" /></div>
+              <div>
+                <p className="text-sm font-bold" style={{ color: "#D32F2F", marginBottom: "4px" }}>⚠️ 18 September Cluster</p>
+                <p className="text-xs" style={{ color: "#B71C1C", marginBottom: "12px", lineHeight: 1.5 }}>You have 3 major assignments due within 2 days. Starting them only on their due dates may create a high workload.</p>
+                <Link href="/rebalance" className="inline-flex items-center rounded-lg text-xs font-bold" style={{ gap: "6px", padding: "8px 12px", background: "#FF4444", color: "white" }}>
+                  Help Me Plan <TrendingUp size={12} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Today's Tasks */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Today&apos;s Sessions</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E", margin: "10px 0" }}>Today&apos;s Sessions</p>
             <span className="text-xs" style={{ color: "#8B8FB5" }}>Mon, 7 Sep</span>
           </div>
           <div className="flex flex-col" style={{ gap: 7 }}>

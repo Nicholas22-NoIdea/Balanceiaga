@@ -1,17 +1,25 @@
 "use client";
 import Link from "next/link";
-import { ChevronLeft, CalendarPlus } from "lucide-react";
+import { ChevronLeft, CalendarPlus, CheckCircle2 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { recoveryCatalog } from "@/lib/recoveryData";
 import { useState } from "react";
 
 export default function RecoveryHub() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [addedActivity, setAddedActivity] = useState<string | null>(null);
   
   const categories = ["All", "Mind", "Body", "Fun", "Environment", "Social", "Rest"];
   const displayedActivities = activeCategory === "All" 
     ? recoveryCatalog 
     : recoveryCatalog.filter(a => a.category === activeCategory);
+
+  const handleAdd = (title: string) => {
+    setAddedActivity(title);
+    setTimeout(() => {
+      setAddedActivity(null);
+    }, 2000);
+  };
 
   return (
     <>
@@ -65,14 +73,31 @@ export default function RecoveryHub() {
                   <p className="text-xs" style={{ color: "#8B8FB5" }}>{act.durationMinutes} min • {act.category}</p>
                 </div>
               </div>
-              <button onClick={() => alert(`Added ${act.title} to your schedule!`)} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "#EEF0FF" }}>
+              <button onClick={() => handleAdd(act.title)} className="w-8 h-8 rounded-full flex items-center justify-center transition-transform active:scale-90" style={{ background: "#EEF0FF" }}>
                 <CalendarPlus size={16} color="#6C63FF" />
               </button>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Added Toast */}
+      {addedActivity && (
+        <div className="fixed z-[999] pointer-events-none" style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)", animation: "popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards" }}>
+          <div className="rounded-2xl flex items-center gap-2" style={{ padding: "16px 24px", background: "rgba(26,26,62,0.95)", backdropFilter: "blur(8px)", boxShadow: "0 8px 32px rgba(0,0,0,0.2)" }}>
+            <CheckCircle2 size={20} color="#00C853" />
+            <span className="text-sm font-bold text-white whitespace-nowrap">{addedActivity} Scheduled</span>
+          </div>
+        </div>
+      )}
+
       <BottomNav />
+      <style jsx global>{`
+        @keyframes popIn {
+          0% { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+          100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+      `}</style>
     </>
   );
 }
