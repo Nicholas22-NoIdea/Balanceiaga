@@ -137,8 +137,8 @@ export default function Dashboard() {
           <p className="text-base font-bold" style={{ color: "#1A1A3E", margin: "10px 0" }}>Live Tracker</p>
         </div>
         <Link href="/notifications/task-status"
-          className="w-full rounded-2xl flex items-center mb-6"
-          style={{ padding: "16px", gap: "12px", background: "linear-gradient(135deg, #1A1A3E, #2D2B6B)" }}>
+          className="w-full rounded-2xl flex items-center"
+          style={{ marginBottom: "18px", padding: "16px", gap: "12px", background: "linear-gradient(135deg, #1A1A3E, #2D2B6B)" }}>
           <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(108,99,255,0.4)" }}>
             <Brain size={20} color="white" />
           </div>
@@ -158,7 +158,7 @@ export default function Dashboard() {
         {/* Category Breakdown */}
         <div className="card mb-6">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-base font-bold" style={{ color: "#1A1A3E", margin: "10px 0" }}>Category Breakdown</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Category Breakdown</p>
             <Link href="/capacity" className="flex items-center gap-1">
               <span className="text-xs" style={{ color: "#6C63FF" }}>Details</span>
               <ChevronRight size={14} color="#6C63FF" />
