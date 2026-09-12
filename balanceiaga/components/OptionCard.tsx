@@ -117,14 +117,21 @@ export default function OptionCard({ option, onAccept, onReject }: OptionCardPro
       <div className="flex gap-2">
         <button
           onClick={() => onAccept(option.id)}
-          className="flex-1 py-3 rounded-xl text-sm font-semibold"
+          className="flex-1 py-3 rounded-xl text-sm font-semibold transition-transform active:scale-95"
           style={{ background: "#6C63FF", color: "white" }}
         >
           Accept
         </button>
         <button
+          onClick={() => alert("Edit mode activated!")}
+          className="flex-1 py-3 rounded-xl text-sm font-semibold transition-transform active:scale-95"
+          style={{ background: "#EEF0FF", color: "#6C63FF" }}
+        >
+          Edit
+        </button>
+        <button
           onClick={() => onReject(option.id)}
-          className="flex-1 py-3 rounded-xl text-sm font-semibold"
+          className="flex-1 py-3 rounded-xl text-sm font-semibold transition-transform active:scale-95"
           style={{ background: "#F0F1FF", color: "#8B8FB5" }}
         >
           Reject

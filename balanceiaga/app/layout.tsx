@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 };
 
 import { AuthProvider } from "@/components/AuthProvider";
+import GlobalToast from "@/components/GlobalToast";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AuthProvider>
           <div className="phone-shell">
+            <GlobalToast />
             {children}
           </div>
         </AuthProvider>

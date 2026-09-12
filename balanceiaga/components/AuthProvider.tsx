@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 const AuthContext = createContext({
   isLoggedIn: false,
   login: () => {},
+  logout: () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -32,6 +33,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoggedIn(true);
   };
 
+  const logout = () => {
+    localStorage.removeItem("balanceiaga_auth");
+    setIsLoggedIn(false);
+    router.replace("/login");
+  };
+
   if (!mounted) {
     return <div style={{ background: "#F4F6FA", minHeight: "100vh", width: "100%" }} />;
   }
@@ -42,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

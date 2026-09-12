@@ -1,156 +1,109 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import Link from "next/link";
+import { User, Lock, Bell, Globe, FileText, Sun, Calendar, HelpCircle, LogOut, ChevronRight } from "lucide-react";
+import BottomNav from "@/components/BottomNav";
+import { useNotifications } from "@/lib/notificationStore";
+import { useAuth } from "@/components/AuthProvider";
 
-const MAX_SELECTIONS = 7;
+function SettingsItem({ icon: Icon, label, value, href, onClick, showBadge = false }: { icon: any, label: string, value?: string, href?: string, onClick?: () => void, showBadge?: boolean }) {
+  const { unreadCount } = useNotifications();
 
-const workStyleOptions = [
-  { emoji: "🌅", label: "Early Bird" },
-  { emoji: "🌙", label: "Night Owl" },
-  { emoji: "🎯", label: "Focused" },
-  { emoji: "🔄", label: "Flexible" },
-  { emoji: "⚡", label: "Intensive" },
-  { emoji: "🌊", label: "Flow State" },
-  { emoji: "📅", label: "Planned" },
-  { emoji: "☕", label: "Slow Burn" },
-  { emoji: "🔇", label: "No Distract" },
-  { emoji: "🎧", label: "Music On" },
-];
+  const content = (
+    <>
+      <div className="flex items-center" style={{ gap: "16px" }}>
+        <Icon size={20} color="#1A1A3E" />
+        <span className="text-sm font-bold" style={{ color: "#1A1A3E" }}>{label}</span>
+      </div>
+      <div className="flex items-center" style={{ gap: "12px" }}>
+        {showBadge && unreadCount > 0 && (
+          <div className="rounded-full text-white text-xs font-bold flex items-center justify-center" style={{ padding: "2px 8px", background: "#FF4444" }}>
+            {unreadCount}
+          </div>
+        )}
+        {value && (
+          <span className="text-xs font-medium" style={{ color: "#8B8FB5" }}>{value}</span>
+        )}
+        <ChevronRight size={16} color="#8B8FB5" />
+      </div>
+    </>
+  );
 
-const recoveryOptions = [
-  { emoji: "🚶", label: "Walk" },
-  { emoji: "🎵", label: "Music" },
-  { emoji: "😴", label: "Rest" },
-  { emoji: "👫", label: "Friends" },
-  { emoji: "🏋️", label: "Exercise" },
-  { emoji: "📖", label: "Reading" },
-  { emoji: "🍳", label: "Cooking" },
-  { emoji: "🎮", label: "Gaming" },
-];
+  const className = "flex items-center justify-between bg-white active:bg-gray-50 transition-colors first:rounded-t-3xl last:rounded-b-3xl w-full text-left";
+  const style = { padding: "16px", borderBottom: "1px solid #E8E9FF" };
 
-type Chip = { emoji: string; label: string };
-
-export default function ProfilePage() {
-  const router = useRouter();
-  const [selected, setSelected] = useState<string[]>([]);
-
-  const toggle = (label: string) => {
-    if (selected.includes(label)) {
-      setSelected(selected.filter((s) => s !== label));
-    } else if (selected.length < MAX_SELECTIONS) {
-      setSelected([...selected, label]);
-    }
-  };
-
-  const canContinue = selected.length > 0;
-
-  const ChipItem = ({ chip }: { chip: Chip }) => {
-    const isSelected = selected.includes(chip.label);
-    const atMax = selected.length >= MAX_SELECTIONS && !isSelected;
+  if (onClick) {
     return (
-      <button
-        onClick={() => toggle(chip.label)}
-        disabled={atMax}
-        className="flex items-center gap-3 py-4 rounded-xl text-base font-semibold transition-all"
-        style={{
-          paddingLeft: 5,
-          paddingRight: 5,
-          background: isSelected ? "#1A1A3E" : "#F5F5F5",
-          color: isSelected ? "white" : "#1A1A3E",
-          border: isSelected ? "1.5px solid #1A1A3E" : "1.5px solid #E8E8E8",
-          opacity: atMax ? 0.4 : 1,
-          cursor: atMax ? "not-allowed" : "pointer",
-          whiteSpace: "nowrap",
-        }}
-      >
-        <span style={{ fontSize: 20 }}>{chip.emoji}</span>
-        {chip.label}
+      <button onClick={onClick} className={className} style={style}>
+        {content}
       </button>
     );
-  };
+  }
 
   return (
-    <div className="screen" style={{ background: "#F0F1FF" }}>
-      {/* White card panel */}
-      <div
-        style={{
-          background: "white",
-          margin: "16px 12px",
-          borderRadius: 24,
-          padding: "28px 28px 32px 28px",
-        }}
-      >
-        {/* Close button */}
-        <button
-          onClick={() => router.back()}
-          className="w-8 h-8 flex items-center justify-center rounded-full mb-5"
-          style={{ background: "#F5F5F5" }}
-        >
-          <X size={16} color="#1A1A3E" />
-        </button>
+    <Link href={href || "#"} className={className} style={style}>
+      {content}
+    </Link>
+  );
+}
 
-        {/* Title */}
-        <h1
-          className="text-2xl font-extrabold mb-2"
-          style={{ color: "#1A1A3E", lineHeight: 1.25 }}
-        >
-          What do you vibe with?
-        </h1>
-        <p className="text-sm mb-10" style={{ color: "#9CA3AF", lineHeight: 1.5 }}>
-          Select up to {MAX_SELECTIONS} preferences to personalise your workload planning.
-        </p>
+export default function ProfilePage() {
+  const { logout } = useAuth();
 
-        {/* ── Section: Work Style ── */}
-        <p className="text-xl font-bold mb-10" style={{ color: "#1A1A3E", margin: "10px 0" }}>
-          Work Style
-        </p>
-        <div className="flex flex-wrap mb-10" style={{ gap: 12 }}>
-          {workStyleOptions.map((chip) => (
-            <ChipItem key={chip.label} chip={chip} />
-          ))}
+  return (
+    <>
+      <div className="screen" style={{ padding: "24px 16px 120px 16px", background: "#F0F1FF" }}>
+        
+        {/* Header */}
+        <div className="text-center mb-6 mt-2">
+          <h1 className="text-lg font-black" style={{ color: "#1A1A3E" }}>Profile</h1>
         </div>
 
-        {/* ── Section: Recovery ── */}
-        <p className="text-xl font-bold mb-6" style={{ color: "#1A1A3E", margin: "10px 0" }}>
-          Recovery
-        </p>
-        <div className="flex flex-wrap mb-8" style={{ gap: 12 }}>
-          {recoveryOptions.map((chip) => (
-            <ChipItem key={chip.label} chip={chip} />
-          ))}
-        </div>
-
-        {/* ── Counter + Continue — inline, always visible ── */}
-        <div
-          className="flex items-center justify-between px-5 py-4 rounded-2xl"
-          style={{ background: "#F5F5F7", marginTop: "20px" }}
-        >
-          <div>
-            <p
-              className="text-xl font-extrabold"
-              style={{ color: selected.length > 0 ? "#1A1A3E" : "#C4C4CF" }}
-            >
-              {selected.length}/{MAX_SELECTIONS}
-            </p>
-            <p className="text-xs font-medium" style={{ color: "#9CA3AF" }}>
-              Selected
-            </p>
-          </div>
-          <button
-            onClick={() => canContinue && router.push("/")}
-            className="px-8 py-3.5 rounded-xl font-bold text-base"
-            style={{
-              background: canContinue ? "#1A1A3E" : "#E5E7EB",
-              color: canContinue ? "white" : "#9CA3AF",
-              cursor: canContinue ? "pointer" : "not-allowed",
-              minWidth: 130,
-            }}
+        {/* Profile Card */}
+        <div className="rounded-3xl flex items-center" style={{ marginBottom: "32px", padding: "20px", gap: "16px", background: "white", boxShadow: "0 2px 12px rgba(0,0,0,0.03)" }}>
+          <div
+            className="w-16 h-16 rounded-full flex items-center justify-center font-bold text-white text-xl flex-shrink-0"
+            style={{ background: "linear-gradient(135deg, #6C63FF 0%, #A78BFA 100%)" }}
           >
-            Continue →
-          </button>
+            AM
+          </div>
+          <div>
+            <p className="text-lg font-bold" style={{ color: "#1A1A3E" }}>Andrew Mike</p>
+            <p className="text-sm font-medium" style={{ color: "#8B8FB5" }}>andrew.mike@university.edu</p>
+          </div>
         </div>
+
+        {/* Account Section */}
+        <div style={{ marginBottom: "32px" }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ padding: "0 16px", color: "#8B8FB5", marginBottom: "12px" }}>Account</p>
+          <div className="rounded-3xl flex flex-col" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.03)", background: "white" }}>
+            <SettingsItem icon={User} label="Manage Profile" />
+            <SettingsItem icon={Lock} label="Password & Security" />
+            <SettingsItem icon={Bell} label="Notifications" href="/notifications" showBadge={true} />
+            <SettingsItem icon={Globe} label="Language" value="English" />
+          </div>
+        </div>
+
+        {/* Preferences Section */}
+        <div style={{ marginBottom: "32px" }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ padding: "0 16px", color: "#8B8FB5", marginBottom: "12px" }}>Preferences</p>
+          <div className="rounded-3xl flex flex-col" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.03)", background: "white" }}>
+            <SettingsItem icon={FileText} label="About Us" />
+            <SettingsItem icon={Sun} label="Theme" value="Light" />
+            <SettingsItem icon={Calendar} label="Appointments" />
+          </div>
+        </div>
+
+        {/* Support Section */}
+        <div style={{ marginBottom: "32px" }}>
+          <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ padding: "0 16px", color: "#8B8FB5", marginBottom: "12px" }}>Support</p>
+          <div className="rounded-3xl flex flex-col" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.03)", background: "white" }}>
+            <SettingsItem icon={HelpCircle} label="Help Center" />
+            <SettingsItem icon={LogOut} label="Log Out" onClick={logout} />
+          </div>
+        </div>
+
       </div>
-    </div>
+      <BottomNav />
+    </>
   );
 }
