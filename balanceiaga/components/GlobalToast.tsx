@@ -42,7 +42,7 @@ export default function GlobalToast() {
     }
   };
 
-  if (!currentNotif) return null;
+  if (!currentNotif || pathname === "/login" || pathname === "/preferences") return null;
 
   return (
     <div className="absolute top-4 left-0 right-0 z-[999] flex justify-center px-4 pointer-events-none">

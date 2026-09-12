@@ -55,12 +55,12 @@ export default function AddWorkload() {
   const [activeTab, setActiveTab] = useState<Tab>("manual");
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [deadlineTime, setDeadlineTime] = useState("23:59");
   const [startTime, setStartTime] = useState("20:00");
   const [endTime, setEndTime] = useState("22:00");
   const [hours, setHours] = useState(2);
   const [sessions, setSessions] = useState(1);
   const [category, setCategory] = useState<Category>("Academic");
-  const [priority, setPriority] = useState<Priority>("Medium");
   const [demand, setDemand] = useState<MentalDemand>("Medium");
   const [flexibility, setFlexibility] = useState<Flexibility>("Can Move");
   const [consequence, setConsequence] = useState<ConsequenceOfDelay>("Moderate");
@@ -91,7 +91,7 @@ export default function AddWorkload() {
     await fetch("/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, deadline, estimatedHours: hours, sessions, category, priority, isProtected, demand, flexibility, consequence, startTime, endTime }),
+      body: JSON.stringify({ title, deadline, deadlineTime, estimatedHours: hours, sessions, category, isProtected, demand, flexibility, consequence, startTime, endTime }),
     }).catch(() => { });
     setTimeout(() => router.push("/overload"), 400);
   };
@@ -168,7 +168,7 @@ export default function AddWorkload() {
               <label className="text-xs font-semibold mb-2 block" style={{ color: "#8B8FB5" }}>DEADLINE</label>
               <div className="flex items-center gap-2">
                 <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} className="flex-1 text-sm font-medium outline-none" style={{ color: "#1A1A3E", background: "transparent" }} />
-                <ChevronDown size={16} color="#8B8FB5" />
+                <input type="time" value={deadlineTime} onChange={(e) => setDeadlineTime(e.target.value)} className="w-24 text-sm font-medium outline-none" style={{ color: "#1A1A3E", background: "transparent" }} />
               </div>
             </div>
 
@@ -217,13 +217,6 @@ export default function AddWorkload() {
               <label className="text-xs font-semibold mb-3 block" style={{ color: "#8B8FB5" }}>CATEGORY</label>
               <div className="flex gap-2 flex-wrap">
                 {(["Academic", "Social", "Errands", "Other"] as Category[]).map((cat) => { const c = categoryColors[cat]; const sel = category === cat; return (<button key={cat} onClick={() => setCategory(cat)} className="pill" style={{ background: sel ? c.color : c.bg, color: sel ? "white" : c.color, border: `1.5px solid ${sel ? c.color : "transparent"}` }}>{cat}</button>); })}
-              </div>
-            </div>
-
-            <div className="card">
-              <label className="text-xs font-semibold mb-3 block" style={{ color: "#8B8FB5" }}>PRIORITY — IS IT URGENT?</label>
-              <div className="flex gap-2">
-                {(["High", "Medium", "Low"] as Priority[]).map((p) => { const c = priorityColors[p]; const sel = priority === p; return (<button key={p} onClick={() => setPriority(p)} className="pill flex-1" style={{ background: sel ? c.color : c.bg, color: sel ? "white" : c.color }}>{p}</button>); })}
               </div>
             </div>
 
