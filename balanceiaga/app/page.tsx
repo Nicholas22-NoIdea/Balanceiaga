@@ -6,11 +6,13 @@ import LoadRing from "@/components/LoadRing";
 import CategoryBar from "@/components/CategoryBar";
 import TaskCard from "@/components/TaskCard";
 import { mockCapacity, mockCategoryLoads, mockTasks } from "@/lib/mockData";
+import { useNotifications } from "@/lib/notificationStore";
 
 export default function Dashboard() {
   const cap = mockCapacity;
-  const todayTasks = mockTasks.filter((t) =>
-    t.scheduledSlots.some((s) => s.day === "Mon")
+  const { unreadCount } = useNotifications();
+  const todayTasks = mockTasks.filter(
+    (t) => t.status !== "done" && t.scheduledSlots.some((s) => s.day === "Mon")
   );
 
   return (
@@ -30,20 +32,22 @@ export default function Dashboard() {
               <p className="text-base font-bold" style={{ color: "#1A1A3E" }}>Andrew Mike 👋</p>
             </div>
           </Link>
-          <div className="relative">
+          <Link href="/notifications" className="relative transition-transform active:scale-95">
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{ background: "#EEF0FF" }}
             >
               <Bell size={18} color="#6C63FF" />
             </div>
-            <div
-              className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center"
-              style={{ background: "#FF4444" }}
-            >
-              <span className="text-white" style={{ fontSize: 9, fontWeight: 700 }}>3</span>
-            </div>
-          </div>
+            {unreadCount > 0 && (
+              <div
+                className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center"
+                style={{ background: "#FF4444", border: "2px solid #F0F1FF" }}
+              >
+                <span className="text-white font-bold" style={{ fontSize: "9px" }}>{unreadCount}</span>
+              </div>
+            )}
+          </Link>
         </div>
 
         {/* ── Today's Balance Module ── */}

@@ -1,18 +1,24 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Calendar, Plus, Leaf, Bell } from "lucide-react";
+import { Home, Calendar, Plus, Leaf, User } from "lucide-react";
+import { useNotifications } from "@/lib/notificationStore";
 
-const navItems = [
+const baseNavItems = [
   { icon: Home, label: "Home", href: "/" },
   { icon: Calendar, label: "Schedule", href: "/capacity" },
   { icon: Plus, label: "", href: "/add-workload", isCenter: true },
   { icon: Leaf, label: "Recovery", href: "/recovery" },
-  { icon: Bell, label: "Alerts", href: "/notifications", badge: 3 },
+  { icon: User, label: "Profile", href: "/profile" },
 ];
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { unreadCount } = useNotifications();
+
+  const navItems = baseNavItems.map(item => 
+    item.label === "Profile" && unreadCount > 0 ? { ...item, badge: unreadCount } : item
+  );
 
   return (
     <nav className="bottom-nav">

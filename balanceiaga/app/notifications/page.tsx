@@ -8,66 +8,9 @@ import {
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
-type NotifType = "starting_soon" | "task_ending" | "overrun" | "rebalance" | "motivational" | "forgotten" | "insight";
+import { useNotifications, NotifType, Notif } from "@/lib/notificationStore";
+
 type TabType = "all" | "tasks" | "insights" | "badges";
-
-interface Notif {
-  id: string;
-  type: NotifType;
-  priority: "high" | "medium" | "low";
-  read: boolean;
-  dismissed: boolean;
-  message: string;
-  subMessage?: string;
-  taskName?: string;
-  taskTime?: string;
-  workloadScore?: number;
-  demand?: string;
-  overrunMinutes?: number;
-  conflictTask?: string;
-  emoji?: string;
-}
-
-const notifications: Notif[] = [
-  {
-    id: "n1", type: "starting_soon", priority: "high", read: false, dismissed: false,
-    message: "Database Assignment starts in 15 minutes",
-    subMessage: "You've had a high mental workload today. Consider a short break before starting.",
-    taskName: "Database Assignment", taskTime: "8:00 PM – 10:00 PM",
-    workloadScore: 78, demand: "High", emoji: "📚",
-  },
-  {
-    id: "n2", type: "task_ending", priority: "high", read: false, dismissed: false,
-    message: "Database Assignment was scheduled to end now",
-    subMessage: "Are you finished?",
-    taskName: "Database Assignment", taskTime: "8:00 PM – 10:00 PM", emoji: "⏰",
-  },
-  {
-    id: "n3", type: "overrun", priority: "high", read: false, dismissed: false,
-    message: "This task is running 30 minutes over schedule",
-    subMessage: "Your Study Session starts at 10:00 PM. Continuing may affect your recovery time.",
-    taskName: "Database Assignment", overrunMinutes: 30,
-    conflictTask: "Study Session", emoji: "⚠️",
-  },
-  {
-    id: "n4", type: "motivational", priority: "low", read: true, dismissed: false,
-    message: "🧘 You've got a lot on your plate today.",
-    subMessage: "You don't have to finish everything at once. Let's make today's load manageable.",
-    emoji: "🌿",
-  },
-  {
-    id: "n5", type: "forgotten", priority: "medium", read: false, dismissed: false,
-    message: "Yesterday's Exam Revision — how did it go?",
-    subMessage: "Scheduled 9:00 AM – 11:00 AM yesterday.",
-    taskName: "Exam Revision", taskTime: "9:00 AM – 11:00 AM", emoji: "🤔",
-  },
-  {
-    id: "n6", type: "insight", priority: "low", read: true, dismissed: false,
-    message: "Pattern detected: Assignments take you ~30 min longer",
-    subMessage: "Based on your last 4 assignments. Want to reserve a buffer next time?",
-    emoji: "📊",
-  },
-];
 
 const rebalanceOptions = [
   { id: "opt1", emoji: "💤", title: "Protect Sleep", desc: "Move Study → Tue 4 PM", before: 82, after: 76, recommended: true },
@@ -97,7 +40,7 @@ const typeColors: Record<NotifType, { bg: string; border: string; accent: string
 export default function NotificationsPage() {
   const router = useRouter();
   const [tab, setTab] = useState<TabType>("all");
-  const [notifs, setNotifs] = useState(notifications);
+  const { notifs, unreadCount: unread, markRead, dismiss } = useNotifications();
   const [expandedOverrun, setExpandedOverrun] = useState<string | null>(null);
   const [chosenRebalance, setChosenRebalance] = useState<string | null>(null);
   const [forgottenAnswers, setForgottenAnswers] = useState<Record<string, string>>({});
@@ -105,11 +48,6 @@ export default function NotificationsPage() {
   const [endedTasks, setEndedTasks] = useState<Record<string, string>>({});
   const [stillWorkingId, setStillWorkingId] = useState<string | null>(null);
   const [rebalanceApplied, setRebalanceApplied] = useState(false);
-
-  const unread = notifs.filter((n) => !n.read && !n.dismissed).length;
-
-  const dismiss = (id: string) => setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, dismissed: true } : n));
-  const markRead = (id: string) => setNotifs((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n));
 
   const filtered = notifs.filter((n) => {
     if (n.dismissed) return false;

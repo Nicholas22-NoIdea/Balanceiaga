@@ -15,7 +15,7 @@ export default function LoginPage() {
 
   const handleLogin = () => {
     login();
-    router.push("/profile");
+    router.push("/preferences");
   };
 
   return (
