@@ -102,7 +102,7 @@ export default function Dashboard() {
             </div>
 
             {/* AI Contextual Insight */}
-            <div className="rounded-2xl" style={{ padding: "16px", marginBottom: "16px", background: "#F8F9FF", border: "1px solid #E8E9FF" }}>
+            <div className="rounded-2xl" style={{ padding: "10px", marginBottom: "10px", background: "#F8F9FF", border: "1px solid #E8E9FF" }}>
               <div className="flex items-start" style={{ gap: "12px" }}>
                 <span className="text-xl">⚠️</span>
                 <div>
@@ -133,6 +133,9 @@ export default function Dashboard() {
         </div>
 
         {/* Live Task Banner */}
+        <div className="mb-2">
+          <p className="text-base font-bold" style={{ color: "#1A1A3E", margin: "10px 0" }}>Live Tracker</p>
+        </div>
         <Link href="/notifications/task-status"
           className="w-full rounded-2xl flex items-center mb-6"
           style={{ padding: "16px", gap: "12px", background: "linear-gradient(135deg, #1A1A3E, #2D2B6B)" }}>
@@ -155,7 +158,7 @@ export default function Dashboard() {
         {/* Category Breakdown */}
         <div className="card mb-6">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Category Breakdown</p>
+            <p className="text-base font-bold" style={{ color: "#1A1A3E", margin: "10px 0" }}>Category Breakdown</p>
             <Link href="/capacity" className="flex items-center gap-1">
               <span className="text-xs" style={{ color: "#6C63FF" }}>Details</span>
               <ChevronRight size={14} color="#6C63FF" />
