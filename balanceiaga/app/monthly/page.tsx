@@ -3,17 +3,20 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, TrendingUp, Calendar, AlertTriangle, ChevronRight } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
-import { mockTasks } from "@/lib/mockData";
+import { useTaskStore } from "@/lib/taskStore";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import TaskEditModal from "@/components/TaskEditModal";
 
 export default function MonthlyView() {
+  const tasks = useTaskStore((state) => state.tasks);
   const router = useRouter();
   const { data: session } = useSession();
   const [lastSynced, setLastSynced] = useState("");
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date(2026, 8, 1));
+  const [editingTask, setEditingTask] = useState<{task: any, slotIndex: number} | null>(null);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -30,7 +33,7 @@ export default function MonthlyView() {
   }
   for (let i = 1; i <= daysInMonth; i++) {
     const currentStr = `${year}-${(month + 1).toString().padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
-    const dayTasks = mockTasks.filter(t => t.scheduledSlots.some(s => s.date === currentStr));
+    const dayTasks = tasks.filter(t => t.scheduledSlots.some(s => s.date === currentStr));
 
     const totalWorkload = dayTasks.reduce((sum, t) => {
       const slot = t.scheduledSlots.find(s => s.date === currentStr);
@@ -222,9 +225,9 @@ export default function MonthlyView() {
       </div>
 
       {/* ── Day Details Modal ── */}
-      {selectedDay && (() => {
+      {selectedDay && !editingTask && (() => {
         const selectedDateStr = `${year}-${(month + 1).toString().padStart(2, "0")}-${selectedDay.toString().padStart(2, "0")}`;
-        const dayTasks = mockTasks.filter(t => t.scheduledSlots.some(s => s.date === selectedDateStr));
+        const dayTasks = tasks.filter(t => t.scheduledSlots.some(s => s.date === selectedDateStr));
         const totalWorkload = dayTasks.reduce((sum, t) => {
           const slot = t.scheduledSlots.find(s => s.date === selectedDateStr);
           if (!slot) return sum;
@@ -260,9 +263,15 @@ export default function MonthlyView() {
               {dayTasks.length > 0 ? (
                 <div className="flex flex-col gap-3">
                   {dayTasks.map(task => {
-                    const slot = task.scheduledSlots.find(s => s.date === selectedDateStr)!;
+                    const slotIndex = task.scheduledSlots.findIndex(s => s.date === selectedDateStr);
+                    const slot = task.scheduledSlots[slotIndex];
                     return (
-                      <div key={task.id} className="rounded-2xl" style={{ padding: "16px", background: task.category === "Academic" ? "#F8F9FF" : task.category === "Social" ? "#FFF0F5" : "#FFF3F0", border: `1px solid ${task.category === "Academic" ? "#E8E9FF" : task.category === "Social" ? "#FFE4ED" : "#FFE5DD"}` }}>
+                      <button 
+                        key={`${task.id}-${slotIndex}`} 
+                        onClick={() => setEditingTask({ task, slotIndex })}
+                        className="w-full text-left rounded-2xl" 
+                        style={{ padding: "16px", background: task.category === "Academic" ? "#F8F9FF" : task.category === "Social" ? "#FFF0F5" : "#FFF3F0", border: `1px solid ${task.category === "Academic" ? "#E8E9FF" : task.category === "Social" ? "#FFE4ED" : "#FFE5DD"}` }}
+                      >
                         <div className="flex items-center justify-between mb-2">
                           <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>{task.title}</p>
                           <span className="text-[10px] font-bold rounded-md" style={{ padding: "4px 8px", background: task.category === "Academic" ? "#EEF0FF" : "white", color: task.category === "Academic" ? "#6C63FF" : task.category === "Social" ? "#FF6B9D" : "#FF7043" }}>{task.category}</span>
@@ -280,11 +289,11 @@ export default function MonthlyView() {
                             </span>
                           </div>
                         </div>
-                      </div>
+                      </button>
                     );
                   })}
 
-                  <Link href="/rebalance" className="w-full mt-2 rounded-xl font-bold text-sm flex items-center justify-center gap-2" style={{ padding: "14px 0", background: "#1A1A3E", color: "white" }}>
+                  <Link href={`/daily?date=${selectedDateStr}`} className="w-full mt-2 rounded-xl font-bold text-sm flex items-center justify-center gap-2" style={{ padding: "14px 0", background: "#1A1A3E", color: "white" }}>
                     Manage Day <TrendingUp size={16} />
                   </Link>
                 </div>
@@ -292,13 +301,24 @@ export default function MonthlyView() {
                 <div className="flex flex-col items-center justify-center text-center" style={{ padding: "40px 0" }}>
                   <span className="text-3xl mb-2">🌱</span>
                   <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>No major tasks scheduled</p>
-                  <p className="text-xs" style={{ color: "#8B8FB5" }}>Good day for a recovery break.</p>
+                  <p className="text-xs mb-4" style={{ color: "#8B8FB5" }}>Good day for a recovery break.</p>
+                  <Link href={`/daily?date=${selectedDateStr}`} className="w-full rounded-xl font-bold text-sm flex items-center justify-center gap-2" style={{ padding: "14px 0", background: "#1A1A3E", color: "white" }}>
+                    Manage Day <TrendingUp size={16} />
+                  </Link>
                 </div>
               )}
             </div>
           </div>
         );
       })()}
+
+      {editingTask && (
+        <TaskEditModal 
+          task={editingTask.task} 
+          slotIndex={editingTask.slotIndex} 
+          onClose={() => setEditingTask(null)} 
+        />
+      )}
 
       <BottomNav />
     </>
