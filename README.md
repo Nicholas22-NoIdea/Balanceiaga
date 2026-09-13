@@ -1,10 +1,15 @@
 # BALANCEIAGA by PulseX
 
 **Github Repo:** [link]
+
 **Team:** MAK JIA HNG, NICHOLAS OOI JIN YONG, CHARIYA A/P NAI NARONG, LIAN YU HERNG
+
 **Problem Statement:** Stress & Workload Manager
+
 **Video Presentation:** [Unlisted Youtube Link]
+
 **Presentation Slides:** [Public Link]
+
 
 ## 1. Project Overview
 
@@ -20,7 +25,7 @@ Existing tools like Motion, Todoist, and Sunsama fall short here — when a stud
 * **1-Tap Workload Rebalancer** — generates realistic ways to fix an overloaded schedule (move, split, or redistribute tasks) while protecting high-priority items.
 * **Capacity & Burnout Engine** — works out real usable hours by subtracting fixed commitments, protected routines, and recovery buffers from the day, and flags when a student is overloaded.
 * **AI Task Analyzer** — students paste a task description and the app breaks it into subtasks with hour estimates, mental demand, urgency, and flexibility — built as a fast, rule-based simulation rather than a live LLM call.
-* **Smart Task Tagging** — every task is marked as either 🔒 Protected or 🌊 Flexible, so the engine knows what it's allowed to move.
+* **Smart Task Tagging** — every task is marked as either Protected or Flexible, so the engine knows what it's allowed to move.
 * **Monthly Calendar View** — plan ahead and spot overload clusters before they happen.
 * **Google Calendar Sign-in & Import** — sign in with Google and pull in upcoming calendar events (read-only).
 * **Recovery & Emergency Brake** — a recovery zone with suggested activities, plus a dedicated emergency-mode screen for critical overload.
@@ -40,26 +45,32 @@ Existing tools like Motion, Todoist, and Sunsama fall short here — when a stud
 | **E — Rigid, locked daily time slots (Dropped)**                     | Original design locked tasks into fixed slots once scheduled. Mentor feedback flagged this as something that could increase anxiety, not reduce it. Replaced with flexible micro-milestones the student can adjust.                                                                       |
 
 ### 2.2 Ideation Boards
+This space serves as our central visual hub for brainstorming, scoping, and shaping our project ideas. Here, we map out core problems, organize features, and refine our direction through visual frameworks like problem trees and user flow charts.
 
-You can embed the images directly (recommended) or have links to your ideation board. Don’t feel forced to add as many diagrams as you can for “more marks”. The reviewers want to know how your team put their minds together to create your solution. It can be messy, with a lot of small dropped ideas. Add 1–2 lines under each explaining what it shows.
+Whether we are evaluating user feedback, defining key modules, or exploring creative solutions, this board brings our collective vision together to guide us from initial concepts to a solid, actionable plan
 
-**Mindmap:** A mindmap brainstorming raw features, constraints, AI scheduling concepts, and metrics to address student burnout.
+<img width="571" height="392" alt="Student Academic Burnout   Capacity Breakdown" src="https://github.com/user-attachments/assets/4f937b3d-ff95-4d12-84bd-b071a305eb9b" />
 
-**Structured Diagram:** A structured diagram illustrating the root causes, core issue, and downstream academic/physical effects of student burnout.
+A mindmap brainstorming raw features, constraints, AI scheduling concepts, and metrics to address student burnout. 
 
-**Breakdown Tree:** A breakdown tree diagram categorizing the key factors contributing to student academic burnout and capacity depletion.
 
-**IMPORTANT:** You can express this in any way you like, including but not limited to: Mindmaps, Problem trees, Flowcharts, User flows, Crazy eights, Affinity diagrams, SCAMPER grids, Fishbone diagrams, 5 Whys chains, and Any other scribbles :)
+<img width="1121" height="351" alt="Student Burnout_Root_Core Breakdown_Effects" src="https://github.com/user-attachments/assets/5b412b30-5345-490a-ab3a-e108d9d73922" />
 
-You can embed images in markdown like so:
+A structured diagram illustrating the root causes, core issue, and downstream academic/physical effects of student burnout. 
 
-`![Mindmap](mindmap.png)`
+
+<img width="1405" height="773" alt="Feature Brainstorm" src="https://github.com/user-attachments/assets/08ebe994-c66f-4d2f-bb69-73c6567f1876" />
+
+A breakdown tree diagram categorizing the key factors contributing to student academic burnout and capacity depletion. 
+
+
+
 
 ### 2.3 Mentor Consultation
 
 | **Date**        | **Mentor**         | **Feedback Received**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **What Was Changed**                                                                                                                                                                                                                                                                                 |
 | --------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **4 Sep (Thu)** | Daniel Koh Yu Hang | Focus on one specific core problem instead of trying to solve everything. Push calendar integration further (let users connect Google Calendar). Consider more activity types — exams, part-time jobs. Make sure the AI's decision-making is fully transparent, not a black box. Sort features into Must-Have / Good-to-Have / Quality-of-Life tiers, and let the QoL tier be where the team stands out. Also flagged that using AI for scheduling decisions needs a real dataset (1,000–2,000+ entries) — without that, don't rely on trained AI for the core logic. | Narrowed the problem to "student workload causing stress → rebalance it." Rebuilt the core engine to run on deterministic logic (explicit rules: deadline urgency, task category, duration) instead of AI. Reorganized every feature into 🔴 Must-Have / 🟡 Good-to-Have / 🟢 Quality-of-Life tiers. |
+| **4 Sep (Thu)** | Daniel Koh Yu Hang | Focus on one specific core problem instead of trying to solve everything. Push calendar integration further (let users connect Google Calendar). Consider more activity types — exams, part-time jobs. Make sure the AI's decision-making is fully transparent, not a black box. Sort features into Must-Have / Good-to-Have / Quality-of-Life tiers, and let the QoL tier be where the team stands out. Also flagged that using AI for scheduling decisions needs a real dataset (1,000–2,000+ entries) — without that, don't rely on trained AI for the core logic. | Narrowed the problem to "student workload causing stress → rebalance it." Rebuilt the core engine to run on deterministic logic (explicit rules: deadline urgency, task category, duration) instead of AI. Reorganized every feature into Must-Have /  Good-to-Have / Quality-of-Life tiers. |
 | **8 Sep (Tue)** | Lim Zi Yang        | Gave a tech-stack + priority breakdown for the demo: Frontend UI & Dashboard and the Capacity/Rebalance Engine and PDF Parser are Critical; Calendar Sync is High priority but secondary; PWA install and Recovery widget are good-to-have visual/QoL additions.                                                                                                                                                                                                                                                                                                      | Locked in the build scope and priority order used in the final tech stack and build plan sections below.                                                                                                                                                                                             |
 
 ## 3. Design & Prototype
@@ -71,7 +82,18 @@ Check that it opens in an incognito window. This can be a link to Figma, Canva, 
 We recommend you embed or link 4–8 key screens as images, with a caption on each explaining the interaction.
 
 * **Overload Dashboard** — User can instantly see how heavy their day is.
+  
+  <img width="345" height="622" alt="image" src="https://github.com/user-attachments/assets/1ea9b4b3-f0f1-4dd9-b717-f47738fa3e03" />
+
+
 * **Load Breakdown & Capacity View** — Load Breakdown allow user to see what’s consuming their time and energy; Capacity View allow user know how much time they realistically have; Monthly Calendar allow user to plan ahead and prevent overload.
+  
+  <img width="307" height="605" alt="image" src="https://github.com/user-attachments/assets/da468677-219f-4baf-b01d-352b3b2af79e" />
+
+
+
+* <img width="310" height="605" alt="image" src="https://github.com/user-attachments/assets/ab225f28-07da-4796-b8c5-4c1f59cb3453" />
+
 * **Monthly Calendar & Google Calendar** — Monthly calendar allow user see workload at a glance across the month; Google Calendar bring your existing commitments here.
 * **Daily Schedule** — User can edit, move and organise task around their day.
 * **Overload Detection** — Show user there are overloaded.
