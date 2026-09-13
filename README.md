@@ -6,7 +6,7 @@
 
 **Problem Statement:** Stress & Workload Manager
 
-**Video Presentation:** [Unlisted Youtube Link]
+**Video Presentation:** https://youtu.be/htRwZ8a28SM
 
 **Presentation Slides:** https://drive.google.com/file/d/1-pRQT_6LXunH1b2IlmeU0Dz-07WqlhQ0/view?usp=sharing
 
