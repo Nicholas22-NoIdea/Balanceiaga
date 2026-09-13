@@ -159,7 +159,7 @@ export default function Dashboard() {
         <div className="card mb-6">
           <div className="flex items-center justify-between mb-4">
             <p className="text-base font-bold" style={{ color: "#1A1A3E", marginBottom: "10px" }}>Category Breakdown</p>
-            <Link href="/capacity" className="flex items-center gap-1">
+            <Link href="/categories" className="flex items-center gap-1">
               <span className="text-xs" style={{ color: "#6C63FF" }}>Details</span>
               <ChevronRight size={14} color="#6C63FF" />
             </Link>
@@ -170,6 +170,20 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
+
+        {/* Capacity Overview Link */}
+        <Link href="/capacity" className="card mb-6 flex items-center justify-between" style={{ background: "#F0FFF4", border: "1px solid #C8E6C9" }}>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+              <span className="text-lg">🔋</span>
+            </div>
+            <div>
+              <p className="text-sm font-bold" style={{ color: "#1A1A3E" }}>Capacity View</p>
+              <p className="text-xs" style={{ color: "#8B8FB5" }}>Check available vs scheduled time</p>
+            </div>
+          </div>
+          <ChevronRight size={16} color="#00C853" />
+        </Link>
 
         {/* Monthly View Link */}
         <Link href="/monthly" className="card mb-6 flex items-center justify-between" style={{ background: "#F8F9FF", border: "1px solid #E8E9FF" }}>

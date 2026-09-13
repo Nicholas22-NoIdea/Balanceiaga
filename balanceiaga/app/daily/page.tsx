@@ -2,12 +2,23 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowLeft, Clock, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { useTaskStore } from "@/lib/taskStore";
 import TaskEditModal from "@/components/TaskEditModal";
-
 import { Suspense } from "react";
+
+const CAT_CFG: Record<string, { color: string; bg: string; border: string }> = {
+  Academic: { color: "#6C63FF", bg: "#EEF0FF", border: "#C7C3FF" },
+  Social:   { color: "#E91E8C", bg: "#FFE8F3", border: "#FFB3D9" },
+  Errands:  { color: "#E64A19", bg: "#FBE9E7", border: "#FFCCBC" },
+  Other:    { color: "#00897B", bg: "#E0F2F1", border: "#A7D7D4" },
+};
+const PRIORITY_COLOR: Record<string, string> = {
+  High: "#FF4444",
+  Medium: "#FF7043",
+  Low: "#00C853",
+};
 
 function DailyViewContent() {
   const searchParams = useSearchParams();
@@ -123,18 +134,8 @@ function DailyViewContent() {
                   const startMins = timeToMins(slot.startTime) % 60;
                   const durationMins = timeToMins(slot.endTime) - timeToMins(slot.startTime);
 
-                  const cfg: Record<string, { color: string; bg: string; border: string }> = {
-                    Academic: { color: '#6C63FF', bg: '#EEF0FF', border: '#C7C3FF' },
-                    Social:   { color: '#E91E8C', bg: '#FFE8F3', border: '#FFB3D9' },
-                    Errands:  { color: '#E64A19', bg: '#FBE9E7', border: '#FFCCBC' },
-                    Other:    { color: '#00897B', bg: '#E0F2F1', border: '#A7D7D4' },
-                  };
-                  const c = cfg[task.category] ?? cfg.Other;
-
-                  const priorityColor: Record<string, string> = {
-                    High: '#FF4444', Medium: '#FF7043', Low: '#00C853',
-                  };
-                  const pColor = priorityColor[task.priority] ?? '#00C853';
+                  const c = CAT_CFG[task.category] ?? CAT_CFG.Other;
+                  const pColor = PRIORITY_COLOR[task.priority] ?? '#00C853';
 
                   const isDone = task.status === 'done';
                   const cardHeight = Math.max((durationMins / 60) * 60, 36);
