@@ -19,7 +19,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="screen flex flex-col items-center justify-center px-10" style={{ background: bg, minHeight: "100vh" }}>
+    <div className="flex flex-col items-center justify-center px-10" style={{ background: bg, minHeight: "100vh" }}>
 
       {/* Logo Block */}
       <div
@@ -27,8 +27,8 @@ export default function LoginPage() {
         style={{ background: bg, boxShadow: shadowCard }}
       >
         <img 
-          src="/logo.png" 
-          alt="Balanceiaga Logo" 
+          src="/pulsex_logo.png" 
+          alt="PulseX Logo" 
           className="w-full h-full object-cover rounded-3xl"
         />
       </div>
