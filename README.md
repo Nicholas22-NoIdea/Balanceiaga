@@ -92,7 +92,7 @@ We recommend you embed or link 4–8 key screens as images, with a caption on ea
 * **Monthly Calendar & Google Calendar** — Monthly calendar allow user see workload at a glance across the month; Google Calendar bring your existing commitments here.
   
   <img width="310" height="605" alt="image" src="https://github.com/user-attachments/assets/ab225f28-07da-4796-b8c5-4c1f59cb3453" />
-  <img width="378" height="580" alt="image" src="https://github.com/user-attachments/assets/74383d8b-d96b-4d40-93f3-0e6adb1b144c" />
+  
 * **Daily Schedule** — User can edit, move and organise task around their day.
 
   
@@ -112,6 +112,7 @@ We recommend you embed or link 4–8 key screens as images, with a caption on ea
 * **Schedule Recovery** — Fit recovery to user availability.
   
   <img width="392" height="763" alt="image" src="https://github.com/user-attachments/assets/6341a545-9e43-4d88-b2c5-64208ad3dc20" />
+
   
 
 ## 4. What Makes It Different
