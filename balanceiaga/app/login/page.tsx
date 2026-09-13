@@ -22,14 +22,11 @@ export default function LoginPage() {
     <div className="flex flex-col items-center justify-center px-10" style={{ background: bg, minHeight: "100vh" }}>
 
       {/* Logo Block */}
-      <div
-        className="w-[110px] h-[110px] rounded-3xl flex items-center justify-center mb-8"
-        style={{ background: bg, boxShadow: shadowCard }}
-      >
+      <div className="w-[140px] h-[140px] flex items-center justify-center mb-6">
         <img 
           src="/pulsex_logo.png" 
           alt="PulseX Logo" 
-          className="w-full h-full object-cover rounded-3xl"
+          className="w-full h-full object-contain"
         />
       </div>
 
