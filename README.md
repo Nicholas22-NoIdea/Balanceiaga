@@ -76,10 +76,6 @@ A breakdown tree diagram categorizing the key factors contributing to student ac
 
 **UI Prototype:** https://ivanmaktech-balanceiaga.vercel.app/
 
-Check that it opens in an incognito window. This can be a link to Figma, Canva, Netlify, Vercel or any other board where you showcase your UI. It can be clickable with hyperlinks or simply ordered screenshots.
-
-We recommend you embed or link 4–8 key screens as images, with a caption on each explaining the interaction.
-
 * **Overload Dashboard** — User can instantly see how heavy their day is.
   
   <img width="345" height="622" alt="image" src="https://github.com/user-attachments/assets/1ea9b4b3-f0f1-4dd9-b717-f47738fa3e03" />
