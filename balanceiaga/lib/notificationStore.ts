@@ -98,9 +98,10 @@ export function useNotifications() {
   const [notifs, setNotifs] = useState(notificationStore.getNotifications());
 
   useEffect(() => {
-    return notificationStore.subscribe(() => {
+    const unsubscribe = notificationStore.subscribe(() => {
       setNotifs(notificationStore.getNotifications());
     });
+    return () => { unsubscribe(); };
   }, []);
 
   return {

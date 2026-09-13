@@ -35,16 +35,26 @@ export default function CapacityView() {
         {/* Overload status */}
         {cap.isOverloaded && (
           <div
-            className="card mb-4 flex items-center gap-3"
-            style={{ background: "#FFF0F0", border: "1.5px solid #FFD0D0" }}
+            className="card flex flex-col gap-3"
+            style={{ background: "#FFF0F0", border: "1.5px solid #FFD0D0", marginBottom: "24px" }}
           >
-            <AlertTriangle size={20} color="#FF4444" />
-            <div>
-              <p className="text-sm font-bold" style={{ color: "#FF4444" }}>You are overloaded</p>
-              <p className="text-xs" style={{ color: "#FF8888" }}>
-                {cap.totalWorkload}h workload vs {cap.realisticCapacity}h capacity (+{cap.overloadHours}h)
-              </p>
+            <div className="flex items-center gap-3">
+              <AlertTriangle size={20} color="#FF4444" />
+              <div>
+                <p className="text-sm font-bold" style={{ color: "#FF4444" }}>You are overloaded</p>
+                <p className="text-xs" style={{ color: "#FF8888" }}>
+                  {cap.totalWorkload}h workload vs {cap.realisticCapacity}h capacity (+{cap.overloadHours}h)
+                </p>
+              </div>
             </div>
+            <Link
+              href="/rebalance"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm mt-1"
+              style={{ background: "#FF4444", color: "white", display: "flex" }}
+            >
+              <TrendingUp size={16} />
+              Rebalance
+            </Link>
           </div>
         )}
 
@@ -146,16 +156,6 @@ export default function CapacityView() {
           </div>
         </div>
 
-        {cap.isOverloaded && (
-          <Link
-            href="/overload"
-            className="w-full flex items-center justify-center gap-2 py-5 rounded-2xl font-bold text-base mb-4"
-            style={{ background: "#FF4444", color: "white" }}
-          >
-            <TrendingUp size={20} />
-            View Overload Details
-          </Link>
-        )}
       </div>
       <BottomNav />
     </>

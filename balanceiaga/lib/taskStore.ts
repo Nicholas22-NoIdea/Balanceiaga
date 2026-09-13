@@ -6,6 +6,7 @@ interface TaskState {
   pastStates: Task[][]; // For Undo
   
   // Actions
+  addTask: (task: Task) => void;
   updateTask: (taskId: string, updates: Partial<Task>) => void;
   updateSlot: (taskId: string, slotIndex: number, newSlot: ScheduledSlot) => void;
   moveSlot: (taskId: string, slotIndex: number, newDate: string, newStartTime: string, newEndTime: string) => void;
@@ -24,6 +25,11 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     set((state) => ({
       pastStates: [...state.pastStates, JSON.parse(JSON.stringify(state.tasks))],
     }));
+  },
+
+  addTask: (task) => {
+    get().saveState();
+    set((state) => ({ tasks: [...state.tasks, task] }));
   },
 
   updateTask: (taskId, updates) => {
