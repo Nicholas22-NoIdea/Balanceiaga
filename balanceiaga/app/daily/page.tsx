@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 import { ArrowLeft, Clock } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
@@ -111,9 +112,19 @@ function DailyViewContent() {
           </p>
         </div>
 
-        <div className="mb-8">
-          <p className="text-base font-bold text-[#1A1A3E] mb-2" style={{ paddingLeft: "5px" }} >Timeline</p>
-          <p className="text-xs text-gray-500 flex items-center gap-1" style={{ marginBottom: "15px", paddingLeft: "5px" }} ><Clock size={12} /> Drag tasks up or down to reschedule.</p>
+        <div className="mb-6 flex items-center justify-between" style={{ padding: "0 10px" }}>
+          <div>
+            <p className="text-base font-bold text-[#1A1A3E] mb-1">Timeline</p>
+            <p className="text-xs text-gray-500 flex items-center gap-1">
+              <Clock size={12} /> Drag tasks to reschedule
+            </p>
+          </div>
+          <Link
+            href="/add-workload"
+            className="flex items-center gap-1.5 justify-center rounded-xl bg-[#6C63FF] text-white py-2 px-3 shadow-sm hover:bg-[#5A52D5] transition-colors"
+          >
+            <span className="font-bold text-xs">+ Add Task</span>
+          </Link>
         </div>
 
         {/* Timeline Grid */}
