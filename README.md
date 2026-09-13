@@ -8,7 +8,7 @@
 
 **Video Presentation:** [Unlisted Youtube Link]
 
-**Presentation Slides:** https://github.com/Nicholas22-NoIdea/Balanceiaga.git
+**Presentation Slides:** https://drive.google.com/file/d/1-pRQT_6LXunH1b2IlmeU0Dz-07WqlhQ0/view?usp=sharing
 
 
 ## 1. Project Overview
