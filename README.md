@@ -142,10 +142,9 @@ Based on what's actually built in the repo so far:
 1. **Core Capacity & Overload Engine** (Must-Have) — ✅ built. Calculates realistic capacity from fixed vs. flexible commitments and flags overload.
 2. **1-Tap Rebalancing Engine** (Must-Have) — ✅ built, deterministic by default, with an optional AI-suggestion layer on top (env-gated, off unless configured).
 3. **Interactive Load Dashboard** (Must-Have) — ✅ built. Shows the 4-pillar load breakdown and today's sessions.
-4. **AI Task Analyzer** (Must-Have) — ✅ built, as rule-based logic rather than a live AI/PDF parser.
+4. **AI Task Analyzer** (Must-Have) — ✅ built, as rule-based logic.
 5. **Google Calendar Sign-in & Read Import** (Good-to-Have) — ✅ built, read-only for now.
 6. **Recovery Zone + Emergency Brake** (Quality-of-Life) — ✅ built as dedicated pages.
-7. **Guided Reflection** (Quality-of-Life) — ✅ built as a dedicated page.
-8. **Notifications (+ settings, task status)** (Quality-of-Life) — ✅ built.
-9. **Database / persistence** (originally planned via Supabase) — ❌ not connected yet; everything currently runs on mock data.
-10. **Two-way calendar sync / .ics export** (originally Good-to-Have) — ❌ not built; current calendar feature is import-only. 
+7. **Notifications (+ settings, task status)** (Quality-of-Life) — ✅ built.
+8. **Database / persistence** (originally planned via Supabase) — ❌ not connected yet; everything currently runs on mock data.
+9. **Two-way calendar sync / .ics export** (originally Good-to-Have) — ❌ not built; current calendar feature is import-only. 
