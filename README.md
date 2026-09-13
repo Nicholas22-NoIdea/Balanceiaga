@@ -29,7 +29,6 @@ Existing tools like Motion, Todoist, and Sunsama fall short here — when a stud
 * **Monthly Calendar View** — plan ahead and spot overload clusters before they happen.
 * **Google Calendar Sign-in & Import** — sign in with Google and pull in upcoming calendar events (read-only).
 * **Recovery & Emergency Brake** — a recovery zone with suggested activities, plus a dedicated emergency-mode screen for critical overload.
-* **Guided Reflection** — a page for reviewing past stressful periods.
 * **Notifications** — an in-app notifications page with settings and task-status tracking.
 
 ## 2. Ideation & Process
