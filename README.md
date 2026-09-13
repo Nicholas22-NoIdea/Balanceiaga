@@ -1,6 +1,6 @@
 # BALANCEIAGA by PulseX
 
-**Github Repo:** [link]
+**Github Repo:** https://github.com/Nicholas22-NoIdea/Balanceiaga.git
 
 **Team:** MAK JIA HNG, NICHOLAS OOI JIN YONG, CHARIYA A/P NAI NARONG, LIAN YU HERNG
 
@@ -8,7 +8,7 @@
 
 **Video Presentation:** [Unlisted Youtube Link]
 
-**Presentation Slides:** [Public Link]
+**Presentation Slides:** https://github.com/Nicholas22-NoIdea/Balanceiaga.git
 
 
 ## 1. Project Overview
