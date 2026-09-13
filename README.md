@@ -85,21 +85,34 @@ We recommend you embed or link 4–8 key screens as images, with a caption on ea
   
   <img width="345" height="622" alt="image" src="https://github.com/user-attachments/assets/1ea9b4b3-f0f1-4dd9-b717-f47738fa3e03" />
 
-
 * **Load Breakdown & Capacity View** — Load Breakdown allow user to see what’s consuming their time and energy; Capacity View allow user know how much time they realistically have; Monthly Calendar allow user to plan ahead and prevent overload.
   
   <img width="307" height="605" alt="image" src="https://github.com/user-attachments/assets/da468677-219f-4baf-b01d-352b3b2af79e" />
-
-
-
-* <img width="310" height="605" alt="image" src="https://github.com/user-attachments/assets/ab225f28-07da-4796-b8c5-4c1f59cb3453" />
-
+  
 * **Monthly Calendar & Google Calendar** — Monthly calendar allow user see workload at a glance across the month; Google Calendar bring your existing commitments here.
+  
+  <img width="310" height="605" alt="image" src="https://github.com/user-attachments/assets/ab225f28-07da-4796-b8c5-4c1f59cb3453" />
+  <img width="378" height="580" alt="image" src="https://github.com/user-attachments/assets/74383d8b-d96b-4d40-93f3-0e6adb1b144c" />
 * **Daily Schedule** — User can edit, move and organise task around their day.
+
+  
+  <img width="377" height="697" alt="image" src="https://github.com/user-attachments/assets/4191cdbc-29b9-43d2-9348-4ceaf0c9f253" />
 * **Overload Detection** — Show user there are overloaded.
+  
+  <img width="377" height="698" alt="image" src="https://github.com/user-attachments/assets/1129a717-65d1-4216-bb28-68da0ab87599" />
+   
 * **AI Rebalance** — Rebalance option analyses deadline, duration, priority, flexibility, consequence, protected time or user can edit to fine-tune their plan manually.
+  
+  <img width="373" height="706" alt="image" src="https://github.com/user-attachments/assets/054e9b79-4e47-452c-a619-15e0fadefae1" />
+  
 * **Recovery Recommendations** — User can get activities matched to their current needs.
+
+  <img width="377" height="706" alt="image" src="https://github.com/user-attachments/assets/9fb93f68-7f35-4f2f-b259-8d0097d8c746" />
+  
 * **Schedule Recovery** — Fit recovery to user availability.
+  
+  <img width="392" height="763" alt="image" src="https://github.com/user-attachments/assets/6341a545-9e43-4d88-b2c5-64208ad3dc20" />
+  
 
 ## 4. What Makes It Different
 
