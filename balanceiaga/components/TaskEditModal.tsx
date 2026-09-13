@@ -30,18 +30,22 @@ export default function TaskEditModal({ task, slotIndex, onClose }: TaskEditModa
   const [resizeEnd, setResizeEnd] = useState(slot.endTime);
   const [splitTime, setSplitTime] = useState(slot.startTime); // Time to split at
 
+  // Must be defined before checkConflict which calls it
+  const timeToMins = (t: string) => {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+  };
+
   const checkConflict = (date: string, start: string, end: string) => {
-    // Basic conflict check
     const startMins = timeToMins(start);
     const endMins = timeToMins(end);
-    
     for (const t of tasks) {
       if (t.id === task.id) continue;
       for (const s of t.scheduledSlots) {
         if (s.date === date) {
           const sStart = timeToMins(s.startTime);
           const sEnd = timeToMins(s.endTime);
-          if ((startMins >= sStart && startMins < sEnd) || 
+          if ((startMins >= sStart && startMins < sEnd) ||
               (endMins > sStart && endMins <= sEnd) ||
               (startMins <= sStart && endMins >= sEnd)) {
             return t.title;
@@ -52,22 +56,18 @@ export default function TaskEditModal({ task, slotIndex, onClose }: TaskEditModa
     return null;
   };
 
-  const conflict = mode === 'move' ? checkConflict(moveDate, moveStart, moveEnd) : 
-                   mode === 'resize' ? checkConflict(slot.date, resizeStart, resizeEnd) : null;
+  const conflict = mode === 'move' ? checkConflict(moveDate, moveStart, moveEnd)
+                 : mode === 'resize' ? checkConflict(slot.date, resizeStart, resizeEnd)
+                 : null;
 
   const handleAction = (action: () => void) => {
     action();
     onClose();
   };
 
-  const timeToMins = (t: string) => {
-    const [h, m] = t.split(':').map(Number);
-    return h * 60 + m;
-  };
-
   return (
-    <div className="fixed inset-y-0 z-[60] flex flex-col justify-end" style={{ width: '375px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.4)' }}>
-      <div className="bg-white rounded-t-3xl" style={{ padding: '24px 24px 100px 24px', maxHeight: '80vh', overflowY: 'auto' }}>
+    <div className="fixed inset-y-0 z-[200] flex flex-col justify-end" style={{ width: '375px', left: '50%', transform: 'translateX(-50%)', background: 'rgba(0,0,0,0.4)' }}>
+      <div className="bg-white rounded-t-3xl animate-slide-up" style={{ padding: '24px 24px 100px 24px', maxHeight: '85vh', overflowY: 'auto' }}>
         
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -104,8 +104,8 @@ export default function TaskEditModal({ task, slotIndex, onClose }: TaskEditModa
           <>
             <div className="grid grid-cols-3 gap-3 mb-3">
               <SquareButton icon={<Edit2 size={20}/>} label="Edit Task" onClick={() => setMode('edit')} />
-              <SquareButton icon={<Move size={20}/>} label="Move" onClick={() => {}} />
-              <SquareButton icon={<Clock size={20}/>} label="Duration" onClick={() => {}} />
+              <SquareButton icon={<Move size={20}/>} label="Move" onClick={() => setMode('move')} />
+              <SquareButton icon={<Clock size={20}/>} label="Duration" onClick={() => setMode('resize')} />
               <SquareButton icon={<SplitSquareHorizontal size={20}/>} label="Split Task" onClick={() => setMode('split')} />
               <SquareButton icon={<Copy size={20}/>} label="Duplicate" onClick={() => handleAction(() => duplicateTask(task.id, slot.date))} />
               <SquareButton icon={<Check size={20}/>} label="Complete" onClick={() => handleAction(() => updateTask(task.id, { status: 'done' }))} />

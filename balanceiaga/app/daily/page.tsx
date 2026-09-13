@@ -111,18 +111,34 @@ function DailyViewContent() {
             <div
               key={hour}
               className="flex border-b border-gray-100 relative"
-              style={{ height: '50px' }}
+              style={{ height: '60px' }}
               onDrop={(e) => handleDrop(e, hour)}
               onDragOver={handleDragOver}
             >
-              <div className="w-16 text-xs text-gray-400 font-medium py-2 pr-4 text-right">
-                {hour > 12 ? hour - 12 : hour} {hour >= 12 ? 'PM' : 'AM'}
+              <div className="w-14 text-xs text-gray-400 font-medium py-2 pr-3 text-right flex-shrink-0">
+                {hour > 12 ? hour - 12 : hour}{hour >= 12 ? 'PM' : 'AM'}
               </div>
               <div className="flex-1 border-l border-gray-100 relative">
-                {/* Render tasks that start in this hour block */}
                 {dayTasks.filter(t => parseInt(t.slot.startTime.split(':')[0], 10) === hour).map(({ task, slotIndex, slot }) => {
                   const startMins = timeToMins(slot.startTime) % 60;
                   const durationMins = timeToMins(slot.endTime) - timeToMins(slot.startTime);
+
+                  const cfg: Record<string, { color: string; bg: string; border: string }> = {
+                    Academic: { color: '#6C63FF', bg: '#EEF0FF', border: '#C7C3FF' },
+                    Social:   { color: '#E91E8C', bg: '#FFE8F3', border: '#FFB3D9' },
+                    Errands:  { color: '#E64A19', bg: '#FBE9E7', border: '#FFCCBC' },
+                    Other:    { color: '#00897B', bg: '#E0F2F1', border: '#A7D7D4' },
+                  };
+                  const c = cfg[task.category] ?? cfg.Other;
+
+                  const priorityColor: Record<string, string> = {
+                    High: '#FF4444', Medium: '#FF7043', Low: '#00C853',
+                  };
+                  const pColor = priorityColor[task.priority] ?? '#00C853';
+
+                  const isDone = task.status === 'done';
+                  const cardHeight = Math.max((durationMins / 60) * 60, 36);
+                  const isShort = cardHeight < 55;
 
                   return (
                     <div
@@ -130,17 +146,64 @@ function DailyViewContent() {
                       draggable
                       onDragStart={(e) => handleDragStart(e, task.id, slotIndex)}
                       onClick={() => setEditingTask({ task, slotIndex })}
-                      className="absolute left-3 right-3 rounded-xl p-3 cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+                      className="absolute left-1.5 right-1.5 rounded-xl cursor-pointer transition-all active:scale-[0.98]"
                       style={{
                         top: `${(startMins / 60) * 100}%`,
-                        height: `${(durationMins / 60) * 50}px`,
-                        background: task.category === "Academic" ? "#EEF0FF" : task.category === "Social" ? "#FFF0F5" : "#FFF3F0",
-                        borderLeft: `4px solid ${task.category === "Academic" ? "#6C63FF" : task.category === "Social" ? "#FF6B9D" : "#FF7043"}`,
-                        zIndex: 10
+                        height: `${cardHeight}px`,
+                        background: c.bg,
+                        borderLeft: `3px solid ${c.color}`,
+                        border: `1px solid ${c.border}`,
+                        borderLeftWidth: '3px',
+                        borderLeftColor: c.color,
+                        boxShadow: `0 1px 6px ${c.color}18`,
+                        zIndex: 10,
+                        opacity: isDone ? 0.6 : 1,
+                        overflow: 'hidden',
+                        padding: '5px 8px',
                       }}
                     >
-                      <p className="text-base font-bold text-[#1A1A3E] truncate mb-0.5">{task.title}</p>
-                      <p className="text-xs font-medium text-gray-500">{slot.startTime} - {slot.endTime}</p>
+                      {/* Row 1: dot + category + title */}
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <div
+                          className="w-2 h-2 rounded-full flex-shrink-0"
+                          style={{ background: c.color }}
+                        />
+                        <span
+                          className="text-[10px] font-bold flex-shrink-0 uppercase tracking-wide"
+                          style={{ color: c.color }}
+                        >
+                          {task.category}
+                        </span>
+                        <span className="text-[10px] text-gray-300 flex-shrink-0">·</span>
+                        <p
+                          className="text-xs font-bold truncate flex-1"
+                          style={{
+                            color: '#1A1A3E',
+                            textDecoration: isDone ? 'line-through' : 'none',
+                          }}
+                        >
+                          {task.title}
+                        </p>
+                        {isDone && <span className="text-[10px] font-bold flex-shrink-0" style={{ color: '#00C853' }}>✓</span>}
+                      </div>
+
+                      {/* Row 2: time + priority — only if tall enough */}
+                      {!isShort && (
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <span className="text-[11px] font-medium" style={{ color: '#8B8FB5' }}>
+                            {slot.startTime}–{slot.endTime}
+                          </span>
+                          <span
+                            className="text-[10px] font-bold rounded px-1.5 py-0"
+                            style={{ color: pColor, background: `${pColor}18` }}
+                          >
+                            {task.priority}
+                          </span>
+                          {task.isProtected && (
+                            <span className="text-[10px] font-bold" style={{ color: '#6C63FF' }}>🔒</span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
